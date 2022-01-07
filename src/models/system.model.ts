@@ -4,7 +4,7 @@ import {ApiProperty} from "@nestjs/swagger";
 import {Sector} from "./sector.model";
 
 
-@Table({tableName: 'systemsr', createdAt: false, updatedAt: false})
+@Table({tableName: 'system', createdAt: false, updatedAt: false})
 export class System extends Model<System>{
 
     @ApiProperty({example: "1", description: "id объекта"})
