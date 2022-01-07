@@ -2,13 +2,13 @@
 import {Column, DataType, Model, Table } from "sequelize-typescript";
 import {ApiProperty} from "@nestjs/swagger";
 
-// interface EconomicsCreationAttr{
-//     name: string;
-//     description: string
-// }
+interface PoliticsCreationAttr{
+    name: string;
+    description: string
+}
 
-@Table({tableName: 'usertest', createdAt: false, updatedAt: false})
-export class Politics extends Model<Politics>{
+@Table({tableName: 'politics', createdAt: false, updatedAt: false})
+export class Politics extends Model<Politics, PoliticsCreationAttr>{
 
     @ApiProperty({example: "1", description: "id объекта"})
     @Column({type: DataType.INTEGER, unique: true, autoIncrement: true, primaryKey: true})

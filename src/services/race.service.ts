@@ -1,18 +1,18 @@
 import {Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/sequelize';
-import {Sector} from "../models/sector.model";
+import {Race} from "../models/race.model";
 
 @Injectable()
-export class SectorService {
+export class RaceService {
 
-    constructor(@InjectModel(Sector) private sectorRepository: typeof Sector) {}
+    constructor(@InjectModel(Race) private raceRepository: typeof Race) {}
 
     async getAll(){
-        return await this.sectorRepository.findAll()
+        return await this.raceRepository.findAll()
     }
 
-    findOneById(id: string): Promise<Sector>{
-        return this.sectorRepository.findOne({
+    findOneById(id: string): Promise<Race>{
+        return this.raceRepository.findOne({
             where:{
                 id,
             },

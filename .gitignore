@@ -1,9 +1,6 @@
 # compiled output
 /dist
 /node_modules
-.prettierrc
-nest-cli.json
-package-lock.json
 
 
 # Logs

@@ -1,8 +1,8 @@
 import {Body, Controller, Delete, Get, Param, Post} from '@nestjs/common';
-import {UserDto} from "../models/dto/userDto";
 import {UsersService} from "./users.service";
 import {ApiOperation, ApiResponse, ApiTags} from "@nestjs/swagger";
 import {Users} from "./users.model";
+import {UserDto} from "./dto/userDto";
 
 @Controller('users')
 @ApiTags('Пользователи ')
@@ -11,7 +11,7 @@ export class UsersController {
     constructor(private readonly userService: UsersService) {
     }
 
-    @ApiOperation({summary: 'Создание нового пользователя.'})
+    @ApiOperation({summary: 'Создание и получение нового пользователя.'})
     @ApiResponse({status: 200, type: Users})
     @Post()
     create(@Body() userDto: UserDto){
