@@ -1,7 +1,6 @@
 
 import {BelongsToMany, Column, DataType, ForeignKey, Model, Table} from "sequelize-typescript";
 import {ApiProperty} from "@nestjs/swagger";
-import {Sector} from "./sector.model";
 import {System} from "./system.model";
 import {Politics} from "./politics.model";
 import {Economics} from "./economics.model";
@@ -21,9 +20,9 @@ export class Planet extends Model<Planet>{
     name: string
 
 
-    // @ApiProperty({example: 'earth.png', description: 'Изображение системы (1700х1000).'})
-    // @Column({type: DataType.STRING, allowNull: false})
-    // image: string
+    @ApiProperty({example: 'earth.png', description: 'Изображение системы (1700х1000).'})
+    @Column({type: DataType.STRING, allowNull: false})
+    image: string
 
     @ApiProperty({example: "1000", description: "Кол-во жителей (в тыс.)"})
     @Column({type: DataType.INTEGER})

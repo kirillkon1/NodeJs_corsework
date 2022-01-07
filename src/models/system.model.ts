@@ -15,9 +15,9 @@ export class System extends Model<System>{
     @Column({type: DataType.STRING, unique: true, allowNull: false})
     name: string
 
-    // @ApiProperty({example: 's1.png', description: 'Изображение системы (1700х1000).'})
-    // @Column({type: DataType.STRING})
-    // image: string
+    @ApiProperty({example: 's1.png', description: 'Изображение системы (1700х1000).'})
+    @Column({type: DataType.STRING})
+    image: string
 
     @ApiProperty({example: "1", description: "id сектора"})
     @ForeignKey(() => Sector)

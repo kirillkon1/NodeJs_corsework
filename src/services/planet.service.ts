@@ -18,7 +18,7 @@ export class PlanetService {
             where:{
                 id,
             },
-
+            include:{all:true}
         })
     }
 

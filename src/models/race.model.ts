@@ -1,5 +1,7 @@
-import {Column, DataType, Model, Table } from "sequelize-typescript";
+import {BelongsToMany, Column, DataType, Model, Table} from "sequelize-typescript";
 import {ApiProperty} from "@nestjs/swagger";
+import {Planet} from "./planet.model";
+import {LivingRaces} from "./living_races.model";
 
 @Table({tableName: 'race', createdAt: false, updatedAt: false})
 export class Race extends Model<Race>{
@@ -12,8 +14,10 @@ export class Race extends Model<Race>{
     @Column({type: DataType.STRING, unique: true, allowNull: false})
     name: string
 
-
     @ApiProperty({example: 'Часто встречающийся подвид человека. Основаная черта - нести и делать бред. Существтует также нецензурное название данного типа.', description: "Описание расы."})
     @Column({type: DataType.STRING})
     description: string
+
+    @BelongsToMany(() => Planet, () => LivingRaces)
+    planet: Planet[]
 }

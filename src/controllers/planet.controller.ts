@@ -2,7 +2,6 @@ import {Controller, Delete, Get, Param} from '@nestjs/common';
 import {ApiOperation, ApiResponse, ApiTags} from "@nestjs/swagger";
 import {PlanetService} from "../services/planet.service";
 import {Planet} from "../models/planet.model";
-import {LivingRacesService} from "../services/living_races.service";
 
 @Controller('planet')
 @ApiTags('Планеты')
