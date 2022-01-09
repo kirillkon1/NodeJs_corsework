@@ -1,5 +1,5 @@
 
-import {Column, DataType, ForeignKey, Model, Table} from "sequelize-typescript";
+import {BelongsTo, Column, DataType, ForeignKey, Model, Table} from "sequelize-typescript";
 import {ApiProperty} from "@nestjs/swagger";
 import {Sector} from "./sector.model";
 
@@ -22,5 +22,8 @@ export class System extends Model<System>{
     @ApiProperty({example: "1", description: "id сектора"})
     @ForeignKey(() => Sector)
     @Column({type: DataType.INTEGER})
-    sector: number
+    sector_id: number
+
+    @BelongsTo(() => Sector)
+    sector: Sector
 }

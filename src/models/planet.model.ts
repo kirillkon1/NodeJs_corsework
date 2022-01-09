@@ -1,5 +1,5 @@
 
-import {BelongsToMany, Column, DataType, ForeignKey, Model, Table} from "sequelize-typescript";
+import {BelongsTo, BelongsToMany, Column, DataType, ForeignKey, Model, Table} from "sequelize-typescript";
 import {ApiProperty} from "@nestjs/swagger";
 import {System} from "./system.model";
 import {Politics} from "./politics.model";
@@ -31,17 +31,34 @@ export class Planet extends Model<Planet>{
     @ApiProperty({example: "1", description: "id полит. строя"})
     @ForeignKey(() => Politics)
     @Column({type: DataType.INTEGER})
-    politics: number
+    politics_id: number
+
+    @BelongsTo(()=> Politics)
+    politics: Politics
 
     @ApiProperty({example: "1", description: "id полит. строя"})
     @ForeignKey(() => Economics)
     @Column({type: DataType.INTEGER})
-    economics: number
+    economics_id: number
+
+    @BelongsTo(()=> Economics)
+    economics: Economics
 
     @ApiProperty({example: "1", description: "id системы"})
     @ForeignKey(() => System)
     @Column({type: DataType.INTEGER})
-    system: number
+    system_id: number
+
+    @BelongsTo(()=> System)
+    system: System
+
+    @ApiProperty({example: "100", description: "Координта Х"})
+    @Column({type: DataType.INTEGER})
+    coord_x
+
+    @ApiProperty({example: "100", description: "Координта Y"})
+    @Column({type: DataType.INTEGER})
+    coord_y
 
     @ApiProperty({example: "[Придурки]", description: "Список рас"})
     @BelongsToMany(() => Race, () => LivingRaces)

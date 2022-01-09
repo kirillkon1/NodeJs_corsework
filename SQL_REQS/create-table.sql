@@ -10,7 +10,7 @@ create table system
     id     serial primary key,
     name   varchar(64)  not null unique
         check ( length(name) > 0 ),
-    sector int          not null
+    sector_id int          not null
         references sector
             on delete cascade
             on update cascade,
@@ -75,19 +75,19 @@ create table planet
 
     id        serial primary key,
     name      varchar(64)                             not null unique check ( length(name) > 0 ),
-    system    int references system on delete cascade not null,
+    system_id    int references system on delete cascade not null,
     citizens  int                                     not null
         check ( citizens >= 0 ), -- citizens - кол-во жителей (в тыс.)
-    politics  int
+    politics_id  int
         references politics
             on delete set null
             on update cascade,
-    economics int
+    economics_id int
         references economics
             on delete set null
             on update cascade
-        check ( (citizens = 0 and politics is null and economics is null) or
-                (citizens > 0 and politics is not null and economics is not null)),
+        check ( (citizens = 0 and politics_id is null and economics_id is null) or
+                (citizens > 0 and politics_id is not null and economics_id is not null)),
 
     image     varchar(255)                            not null,
 
@@ -121,7 +121,7 @@ create table username
     id       serial primary key,
     login    varchar(64) unique           not null,
     password varchar(64)                  not null,
-    role     integer references user_role not null
+    role_id     integer references user_role not null
 );
 
 create table pilot

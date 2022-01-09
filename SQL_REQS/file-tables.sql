@@ -111,7 +111,7 @@ insert into sector(name) values
 ('Карагон');
 
 -------SYSTEMS---------
-insert into system(name, sector, image) values
+insert into system(name, sector_id, image) values
 ('Витта Прайонис', (select sector.id from sector where sector.name = 'Атланта'), 's5.png'),
 ('Шеат', (select sector.id from sector where sector.name = 'Атланта'), 's4.png'),
 ('Краа', (select sector.id from sector where sector.name = 'Атланта'), 's3.png'),
@@ -147,7 +147,7 @@ insert into system(name, sector, image) values
 
 -------PLANETS-------
 
-insert into planet(name, citizens, politics, economics, system, coord_x, coord_y, image) values
+insert into planet(name, citizens, politics_id, economics_id, system_id, coord_x, coord_y, image) values
 ('Невод', 0, null, null, (select system.id from system where system.name = 'Витта Прайонис'), 1140, 796, 'p5.png'),
 ('Омилит', 1703, 3, 1, (select system.id from system where system.name = 'Витта Прайонис'), -360, -233, 'p7.png'),
 ('Атрий', 2325, 3, 1, (select system.id from system where system.name = 'Витта Прайонис'), -1264, -735, 'p7.png'),

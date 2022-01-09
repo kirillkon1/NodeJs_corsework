@@ -7,7 +7,7 @@ create index action_index on action using btree(pilot_id);
 
 create index username_index on username using hash(login);
 
-create index planet_index_system on planet using btree(system);
+create index planet_index_system on planet using btree(system_id);
 
 create index living_races_index on living_races using btree(planet_id);
 

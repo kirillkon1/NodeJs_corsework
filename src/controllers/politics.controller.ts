@@ -1,10 +1,12 @@
-import {Controller, Delete, Get, Param} from '@nestjs/common';
+import {Controller, Delete, Get, Param, UseGuards} from '@nestjs/common';
 import {ApiOperation, ApiResponse, ApiTags} from "@nestjs/swagger";
 import {PoliticsService} from "../services/politics.service";
 import {Politics} from "../models/politics.model";
+import {JwtAuthGuard} from "../auth/jwt.auth.guard";
 
 @Controller('pol')
 @ApiTags('Политика')
+@UseGuards(JwtAuthGuard)
 export class PoliticsController {
 
     constructor(private readonly service: PoliticsService) {

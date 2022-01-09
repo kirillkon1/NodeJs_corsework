@@ -1,10 +1,12 @@
-import {Controller, Delete, Get, Param} from '@nestjs/common';
+import {Controller, Delete, Get, Param, UseGuards} from '@nestjs/common';
 import {ApiOperation, ApiResponse, ApiTags} from "@nestjs/swagger";
 import {Race} from "../models/race.model";
 import {RaceService} from "../services/race.service";
+import {JwtAuthGuard} from "../auth/jwt.auth.guard";
 
 @Controller('race')
 @ApiTags('Расы')
+@UseGuards(JwtAuthGuard)
 export class RaceController {
 
     constructor(private readonly service: RaceService) {

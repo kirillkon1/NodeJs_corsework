@@ -23,7 +23,7 @@ export class PlanetService {
     }
 
     async getAllBySystemId(systemId: string){
-        return await this.planetRepository.findAll({where: {system: systemId, }, include: {all: true}})
+        return await this.planetRepository.findAll({where: {system_id: systemId, }, include: {all: true}})
     }
 
     async removeOne(id: string): Promise<void>{

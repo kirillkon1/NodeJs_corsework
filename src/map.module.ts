@@ -1,7 +1,7 @@
-import { Module } from '@nestjs/common';
+import {Module} from '@nestjs/common';
 import {Sector} from "./models/sector.model";
 import {SequelizeModule} from "@nestjs/sequelize";
-import { SectorService } from './services/sector.service';
+import {SectorService} from './services/sector.service';
 import {SectorController} from "./controllers/sector.controller";
 import {Economics} from "./models/economics.model";
 import {Politics} from "./models/politics.model";
@@ -19,11 +19,21 @@ import {PoliticsController} from "./controllers/politics.controller";
 import {EconomicsController} from "./controllers/economics.controller";
 import {LivingRaces} from "./models/living_races.model";
 import {System} from "./models/system.model";
+import {AuthModule} from "./auth/auth.module";
+import {SpacebaseService} from "./services/spacebase.service";
+import {SpacebaseController} from "./controllers/spacebase.controller";
+import {Spacebase} from "./models/spacebase.model";
+import {SpacebaseType} from "./models/spacebase-type.model";
+
 
 
 @Module({
-    providers: [SectorService, SystemService, PlanetService, RaceService, PoliticsService, EconomicsService],
-    controllers: [SectorController, SystemController, PlanetController, RaceController, PoliticsController, EconomicsController],
-    imports: [SequelizeModule.forFeature([Sector, System, Planet, Politics, Race, Economics, LivingRaces])]
+
+    providers: [SectorService, SystemService, PlanetService, RaceService, PoliticsService, EconomicsService,
+        SpacebaseService,],
+    controllers: [SectorController, SystemController, PlanetController, RaceController, PoliticsController,
+        EconomicsController, SpacebaseController],
+    imports: [SequelizeModule.forFeature([Sector, System, Planet, Politics, Race, Economics, LivingRaces, Spacebase, SpacebaseType]), AuthModule]
 })
-export class MapModule {}
+export class MapModule {
+}

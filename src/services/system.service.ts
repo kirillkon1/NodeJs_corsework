@@ -9,11 +9,11 @@ export class SystemService {
     constructor(@InjectModel(System) private systemRepository: typeof System) {}
 
     async getAll(){
-        return await this.systemRepository.findAll()
+        return await this.systemRepository.findAll({include: {all: true}})
     }
 
     findAllBySectorId(sectorId: string): Promise<System[]>{
-        return this.systemRepository.findAll({where: {sector: sectorId}})
+        return this.systemRepository.findAll({where: {sector: sectorId}, include: {all: true}})
     }
 
     findOneById(id: string): Promise<System>{

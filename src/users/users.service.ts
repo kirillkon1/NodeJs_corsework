@@ -1,6 +1,6 @@
-import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
+import {Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/sequelize';
-import {Users} from "./users.model";
+import {Users} from "./model/users.model";
 import {UserDto} from "./dto/userDto";
 
 
@@ -10,16 +10,11 @@ export class UsersService {
     constructor(@InjectModel(Users) private userRepository: typeof Users) {}
 
     async createUser(dto: UserDto){
-
-        if(this.getUserByLogin(dto.login)){
-            throw new HttpException("Пользователь с таким логином уже существует", HttpStatus.BAD_REQUEST)
-        }
-
         return await this.userRepository.create(dto)
     }
 
     async getAllUsers(){
-        return await this.userRepository.findAll()
+        return await this.userRepository.findAll({include: {all: true}})
     }
 
     findOne(id: string): Promise<Users>{
@@ -36,6 +31,7 @@ export class UsersService {
     }
 
     async getUserByLogin(login: string){
-        const user = this.userRepository.findOne({where: {login}})
+        const user = this.userRepository.findOne({where: {login}, include: {all: true}})
+        return user
     }
 }

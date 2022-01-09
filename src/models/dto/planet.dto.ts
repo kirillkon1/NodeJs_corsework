@@ -1,7 +1,5 @@
 import {ApiProperty} from "@nestjs/swagger";
-import {Column, DataType, ForeignKey} from "sequelize-typescript";
-import {Politics} from "../politics.model";
-import {Economics} from "../economics.model";
+
 
 export class PlanetDto {
 

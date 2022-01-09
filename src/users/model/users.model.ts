@@ -1,14 +1,14 @@
-import {BelongsTo, Column, DataType, ForeignKey, Model, Table} from "sequelize-typescript";
+import {Column, DataType, ForeignKey, Model, Table} from "sequelize-typescript";
 import {ApiProperty} from "@nestjs/swagger";
 import {UserRole} from "./user_role.model";
 
-interface UserCreationAttr{
+interface UserCreationAttr {
     login: string;
     password: string;
 }
 
 @Table({tableName: 'username', createdAt: false, updatedAt: false})
-export class Users extends Model<Users, UserCreationAttr>{
+export class Users extends Model<Users, UserCreationAttr> {
 
     @ApiProperty({example: "1", description: `id объекта`})
     @Column({type: DataType.INTEGER, unique: true, autoIncrement: true, primaryKey: true})
@@ -26,6 +26,6 @@ export class Users extends Model<Users, UserCreationAttr>{
     @ApiProperty({example: 'ADMIN', description: "Роль пользователя (ADMIN/USER)."})
     @Column({type: DataType.INTEGER, allowNull: false, defaultValue: 1})
     @ForeignKey(() => UserRole)
-    role: number
+    role_id: number
 
 }

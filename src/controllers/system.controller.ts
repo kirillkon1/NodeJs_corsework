@@ -1,11 +1,12 @@
-import {Controller, Delete, Get, Param} from '@nestjs/common';
+import {Controller, Delete, Get, Param, UseGuards} from '@nestjs/common';
 import {ApiOperation, ApiResponse, ApiTags} from "@nestjs/swagger";
-import {Sector} from "../models/sector.model";
 import {SystemService} from "../services/system.service";
 import {System} from "../models/system.model";
+import {JwtAuthGuard} from "../auth/jwt.auth.guard";
 
 @Controller('system')
 @ApiTags('Системы')
+@UseGuards(JwtAuthGuard)
 export class SystemController {
 
     constructor(private readonly service: SystemService) {

@@ -1,10 +1,12 @@
-import {Body, Controller, Delete, Get, Param, Post} from '@nestjs/common';
+import {Controller, Delete, Get, Param, UseGuards} from '@nestjs/common';
 import {ApiOperation, ApiResponse, ApiTags} from "@nestjs/swagger";
 import {Sector} from "../models/sector.model";
 import {SectorService} from "../services/sector.service";
+import {JwtAuthGuard} from "../auth/jwt.auth.guard";
 
 @Controller('sector')
 @ApiTags('Сектор')
+@UseGuards(JwtAuthGuard)
 export class SectorController {
 
     constructor(private readonly service: SectorService) {
