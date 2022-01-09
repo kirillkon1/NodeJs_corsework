@@ -3,7 +3,7 @@ import {SequelizeModule} from "@nestjs/sequelize";
 import {UsersModule} from './users/users.module';
 import {Users} from "./users/model/users.model";
 import {Sector} from "./models/sector.model";
-import {MapModule} from "./map.module";
+import {GameModule} from "./gameModule";
 import {Planet} from "./models/planet.model";
 import {Politics} from "./models/politics.model";
 import {Race} from "./models/race.model";
@@ -15,6 +15,7 @@ import {AuthModule} from './auth/auth.module';
 import {ConfigModule} from "@nestjs/config";
 import {Spacebase} from "./models/spacebase.model";
 import {SpacebaseType} from "./models/spacebase-type.model";
+import {Pilot} from "./models/pilot.model";
 
 @Module({
     imports: [
@@ -31,10 +32,10 @@ import {SpacebaseType} from "./models/spacebase-type.model";
             database: process.env.POSTGRES_DATABASE,
             autoLoadModels: false,
             models: [Users, UserRole, Sector, Sector, System, Planet, Politics,
-                Race, Economics, LivingRaces, Spacebase, SpacebaseType,
+                Race, Economics, LivingRaces, Spacebase, SpacebaseType, Pilot
             ],
         }),
-        AuthModule, UsersModule, MapModule
+        AuthModule, UsersModule, GameModule
     ],
 
 

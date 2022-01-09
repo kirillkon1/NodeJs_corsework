@@ -1,48 +1,82 @@
-import {Injectable} from '@nestjs/common';
+import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/sequelize';
 
 import {Pilot} from "../models/pilot.model";
 import {PilotDto} from "../models/dto/pilot.dto";
-import {ApiProperty} from "@nestjs/swagger";
-
-
-class MoveToSystemDTO {
-
-    @ApiProperty({example: '1', description: 'id системы'})
-    system_id: number
-    @ApiProperty({example: '1', description: 'id пилота'})
-    pilot_id: number
-}
+import {Request} from "express";
+import {JwtService} from "@nestjs/jwt";
+import {Users} from "../users/model/users.model";
 
 @Injectable()
 export class PilotService {
 
-    constructor(@InjectModel(Pilot) private pilotRepository: typeof Pilot) {
+    constructor(@InjectModel(Pilot) private pilotRepository: typeof Pilot, private jwtService: JwtService) {
     }
 
-    async create(dto: PilotDto) {
-        return await this.pilotRepository.create(dto)
+    async create(dto: PilotDto, req: Request) {
+
+        try {
+            const name: string = dto.name
+            const description: string = dto.description
+            const race_id: number = dto.race_id
+            const rating: number = dto.rating
+            const owner: number = this.jwtService.verify(req.headers.authorization.split(' ')[1]).id
+            const image: string = dto.image
+
+            const comrade = this.getPilotByName(name)
+
+            if(comrade) return "Простите, но пилот с таким именем уже существует!"
+
+
+            return await this.pilotRepository.create({name, description, race_id, rating, owner, image})
+        } catch (e) {
+            console.log(e)
+            throw new HttpException("Не получается создать пилота!", HttpStatus.FORBIDDEN)
+        }
     }
 
     async getAll() {
-        return await this.pilotRepository.findAll()
+        return await this.pilotRepository.findAll({include: {all: true}})
     }
 
-    findOneById(id: string): Promise<Pilot> {
-        return this.pilotRepository.findOne({
+    async findByUserId(id: string) {
+        return await this.pilotRepository.findOne({
             where: {
-                id,
+                owner: id,
             },
+            include: {all: true}
         })
     }
 
-    async removeOne(id: string): Promise<void> {
-        const entity = await this.findOneById(id)
+
+    async findOneById(id: string): Promise<Pilot> {
+        return await this.pilotRepository.findOne({
+            where: {
+                id,
+            },
+            include: {all: true}
+        })
+    }
+
+    async removeOne(id: string, req: Request): Promise<void> {
+        const entity: Pilot = await this.findOneById(id)
+        const token = req.headers.authorization
+
+        const user: Users = this.jwtService.verify(token.split(' ')[1])
+
+        if (entity.owner != user.id) {
+            throw new HttpException("Этот пилот вам не принадлежит!", HttpStatus.FORBIDDEN)
+        }
+
         await entity.destroy()
     }
 
-    async moveToSystem(dto: MoveToSystemDTO) {
 
+    private getPilotByName(name: string) {
+        return this.pilotRepository.findOne({
+            where: {
+                name: name
+            }
+        })
     }
-
 }

@@ -24,16 +24,20 @@ import {SpacebaseService} from "./services/spacebase.service";
 import {SpacebaseController} from "./controllers/spacebase.controller";
 import {Spacebase} from "./models/spacebase.model";
 import {SpacebaseType} from "./models/spacebase-type.model";
+import {PilotController} from "./controllers/pilot.controller";
+import {Pilot} from "./models/pilot.model";
+import {PilotService} from "./services/pilot.service";
 
 
 
 @Module({
 
     providers: [SectorService, SystemService, PlanetService, RaceService, PoliticsService, EconomicsService,
-        SpacebaseService,],
+        SpacebaseService, PilotService],
     controllers: [SectorController, SystemController, PlanetController, RaceController, PoliticsController,
-        EconomicsController, SpacebaseController],
-    imports: [SequelizeModule.forFeature([Sector, System, Planet, Politics, Race, Economics, LivingRaces, Spacebase, SpacebaseType]), AuthModule]
+        EconomicsController, SpacebaseController, PilotController],
+    imports: [SequelizeModule.forFeature([Pilot, Sector, System, Planet, Politics,
+        Race, Economics, LivingRaces, Spacebase, SpacebaseType]), AuthModule]
 })
-export class MapModule {
+export class GameModule {
 }

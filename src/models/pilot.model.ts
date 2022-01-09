@@ -1,5 +1,5 @@
 
-import {Column, DataType, ForeignKey, Model, Table} from "sequelize-typescript";
+import {BelongsTo, Column, DataType, ForeignKey, Model, Table} from "sequelize-typescript";
 import {ApiProperty} from "@nestjs/swagger";
 import {Race} from "./race.model";
 import {Users} from "../users/model/users.model";
@@ -38,10 +38,13 @@ export class Pilot extends Model<Pilot, PilotCreationAttr>{
     @Column({type: DataType.INTEGER, allowNull: false, defaultValue: 0})
     rating: number
 
-    @ApiProperty({example: "1", description: "id пользователя, владеющего этим пилотом."})
+    @ApiProperty({example: "1", description: "id пользователя (user_id), владеющего этим пилотом."})
     @Column({type: DataType.INTEGER, allowNull: false})
     @ForeignKey(()=> Users)
     owner: number
+
+    @BelongsTo(()=> Users)
+    user: Users
 
     @ApiProperty({example: 'human1.png', description: 'Изображение пилота (100х100).'})
     @Column({type: DataType.STRING, allowNull: false})

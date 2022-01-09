@@ -12,10 +12,7 @@ export class PilotDto{
     race_id: number
 
     @ApiProperty({example: '11', description: 'рейтинг пилота (-100 < x < 100)'})
-    rating: number
-
-    @ApiProperty({example: '1', description: 'id пользователя'})
-    owner: number
+    rating: number = 0
 
     @ApiProperty({example: 'human1.png', description: 'Изображение пилота'})
     image: string
