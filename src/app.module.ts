@@ -1,21 +1,24 @@
 import {Module} from "@nestjs/common";
 import {SequelizeModule} from "@nestjs/sequelize";
 import {UsersModule} from './users/users.module';
-import {Users} from "./users/model/users.model";
-import {Sector} from "./models/sector.model";
-import {GameModule} from "./gameModule";
-import {Planet} from "./models/planet.model";
-import {Politics} from "./models/politics.model";
-import {Race} from "./models/race.model";
-import {Economics} from "./models/economics.model";
-import {LivingRaces} from "./models/living_races.model";
-import {UserRole} from "./users/model/user_role.model";
-import {System} from "./models/system.model";
+import {Users} from "./users/users.model";
+import {Sector} from "./game/sector/sector.model";
+import {GameModule} from "./game/gameModule";
+import {Planet} from "./game/planet/planet.model";
+import {Politics} from "./game/planet/politics/politics.model";
+import {Race} from "./game/race/race.model";
+import {Economics} from "./game/planet/economics/economics.model";
+import {LivingRaces} from "./game/planet/living_races/living_races.model";
+import {UserRole} from "./users/user-role/user_role.model";
+import {System} from "./game/system/system.model";
 import {AuthModule} from './auth/auth.module';
 import {ConfigModule} from "@nestjs/config";
-import {Spacebase} from "./models/spacebase.model";
-import {SpacebaseType} from "./models/spacebase-type.model";
-import {Pilot} from "./models/pilot.model";
+import {Spacebase} from "./game/spacebase/spacebase.model";
+import {SpacebaseType} from "./game/spacebase/spacebase-type/spacebase-type.model";
+import {Pilot} from "./game/pilot/pilot.model";
+import {Landing} from "./game/landing/landing.model";
+import {Spaceship} from "./game/spaceship/spaceship.model";
+import {SpaceshipType} from "./game/spaceship/spaceship-type/spaceship-type.model";
 
 @Module({
     imports: [
@@ -32,7 +35,8 @@ import {Pilot} from "./models/pilot.model";
             database: process.env.POSTGRES_DATABASE,
             autoLoadModels: false,
             models: [Users, UserRole, Sector, Sector, System, Planet, Politics,
-                Race, Economics, LivingRaces, Spacebase, SpacebaseType, Pilot
+                Race, Economics, LivingRaces, Spacebase, SpacebaseType, Pilot, Landing,
+                Spaceship, SpaceshipType
             ],
         }),
         AuthModule, UsersModule, GameModule

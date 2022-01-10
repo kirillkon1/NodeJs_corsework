@@ -23,6 +23,7 @@ create table spacebase_type
     id          serial primary key,
     name        varchar(32)  not null unique check ( length(name) > 0 ),
     description varchar(512),
+    image varchar(255) not null,
     rating_down int check (rating_down < 100 and rating_down >= -100
         ),
     rating_up   int check ( rating_up >= -100 and rating_up <= 100 and rating_down < rating_up)
@@ -198,7 +199,7 @@ create table living_races
 
 create table landings
 (
-    landing_id   int primary key,
+    landing_id   serial primary key,
     spaceship_id integer references spaceship on delete cascade not null,
     planet_id    integer                                        references planet on delete set null,
     spacebase_id integer                                        references spacebase on delete set null,

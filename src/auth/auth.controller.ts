@@ -1,6 +1,6 @@
 import {Body, Controller, Post} from '@nestjs/common';
 import {ApiTags} from "@nestjs/swagger";
-import {UserDto} from "../users/dto/userDto";
+import {UserDto} from "../users/userDto";
 import {AuthService} from "./auth.service";
 
 
@@ -13,6 +13,7 @@ export class AuthController {
 
     @Post('/login')
     login(@Body() userDto: UserDto){
+        console.log(userDto)
         return this.authService.login(userDto)
     }
 

@@ -1,8 +1,8 @@
 import {CanActivate, ExecutionContext, Injectable, UnauthorizedException} from "@nestjs/common";
 import {JwtService} from "@nestjs/jwt";
 import {UsersService} from "../../users/users.service";
-import {UserRoleService} from "../../users/userRole.service";
-import {Users} from "../../users/model/users.model";
+import {UserRoleService} from "../../users/user-role/userRole.service";
+import {Users} from "../../users/users.model";
 import {Reflector} from "@nestjs/core";
 import {ROLES_KEY} from "./roles.decorator";
 
