@@ -7,7 +7,7 @@ import {System} from "../system/system.model";
 interface SpaceshipAttr {
 
     name: string
-    spaceship_type_id: string
+    spaceship_type_id: number
     pilot_id: number
     system_id: number
     image: string

@@ -23,11 +23,11 @@ export class PilotService {
             const owner: number = this.jwtService.verify(req.headers.authorization.split(' ')[1]).id
             const image: string = dto.image
 
-            const comrade:Pilot = await this.getPilotByName(name)
+            const comrade: Pilot = await this.getPilotByName(name)
 
             console.log(comrade)
 
-            if(comrade) return "Простите, но пилот с таким именем уже существует!"
+            if (comrade) return "Простите, но пилот с таким именем уже существует!"
 
 
             return await this.pilotRepository.create({name, description, race_id, rating, owner, image})
@@ -38,15 +38,15 @@ export class PilotService {
     }
 
     async getAll() {
-        return await this.pilotRepository.findAll({include: {all: true}})
+        return await this.pilotRepository.findAll({})
     }
 
-    async findByUserId(id: string) {
+    async findByUser(req: Request) {
+        const user: Users = await this.jwtService.verify(req.headers.authorization.split(' ')[1])
         return await this.pilotRepository.findOne({
             where: {
-                owner: id,
+                owner: user.id,
             },
-            include: {all: true}
         })
     }
 
@@ -58,6 +58,23 @@ export class PilotService {
             },
             include: {all: true}
         })
+    }
+
+    async updatePilot(id: string, dto: PilotDto){
+
+        try {
+            await this.pilotRepository.update({
+                name: dto.name,
+                race_id: dto.race_id,
+                image: dto.image,
+                description: dto.description,
+                rating: dto.rating
+            }, {where: {id: id}})
+
+            return this.getPilotByName(dto.name)
+        }catch (e){
+            throw new HttpException("Не получилось обновить пилота!", HttpStatus.CONFLICT)
+        }
     }
 
     async removeOne(id: string, req: Request): Promise<void> {
@@ -80,5 +97,6 @@ export class PilotService {
                 name: name
             }
         })
+
     }
 }

@@ -14,7 +14,7 @@ export class SystemController {
 
     @ApiOperation({summary: 'Получение всех Систем.'})
     @ApiResponse({status: 200, type: [System]})
-    @Get()
+    @Get('all')
     findAll(){
         return this.service.getAll()
     }

@@ -18,7 +18,7 @@ export class SpaceshipController {
     constructor(private readonly service: SpaceshipService, private readonly landingService: LandingService) {
     }
 
-    @ApiOperation({summary: 'Получение всех Spaceship.'})
+    @ApiOperation({summary: 'Создать новый корабль (см. SpaceshipDTO).'})
     @ApiResponse({status: 200, type: Spaceship})
     @Post()
     create(@Body() dto: SpaceshipDto) {
@@ -27,7 +27,7 @@ export class SpaceshipController {
 
     @ApiOperation({summary: 'Получение всех Spaceship.'})
     @ApiResponse({status: 200, type: [Spaceship]})
-    @Get('/all')
+    @Get('all')
     findAll() {
         return this.service.getAll()
     }
@@ -53,21 +53,21 @@ export class SpaceshipController {
         return this.landingService.launchOn(dto)
     }
 
-    @ApiOperation({summary: 'Посадить корабль на космическую станцию (нужно LandingDTO!).'})
+    @ApiOperation({summary: 'Посадить корабль на космическую станцию (нужен LandingDTO!).'})
     @ApiResponse({status: 200})
     @Put('base')
     launchOnBase(@Body() dto: LandingDto) {
         this.landingService.launchOn(dto)
     }
 
-    @ApiOperation({summary: 'Перелететь в другую систему. (Смотри MoveToSystemDTO!)'})
+    @ApiOperation({summary: 'Перелететь в другую систему. (см. MoveToSystemDTO!)'})
     @ApiResponse({status: 200})
     @Put('move')
     moveToSystem(@Body() dto: MoveToSystemDto, @Req() req: Request) {
         this.service.moveToAnotherSystem(req, dto)
     }
 
-    @ApiOperation({summary: 'Посадить корабль на планету (нужно LandingDTO!).'})
+    @ApiOperation({summary: 'Покинуть станцию или планету (см. LandingDTO!).'})
     @ApiResponse({status: 200})
     @Delete('/leave')
     leave(@Body() dto: LandingDto) {
@@ -86,5 +86,6 @@ export class SpaceshipController {
     findShipsByBaseId(@Param('id') id: string) {
         return this.landingService.findAllShipsBySpacebaseId(id)
     }
+
 
 }

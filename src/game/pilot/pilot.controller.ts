@@ -14,7 +14,7 @@ export class PilotController {
     constructor(private readonly service: PilotService) {
     }
 
-    @ApiOperation({summary: 'Создание пилота (необходим JWT).'})
+    @ApiOperation({summary: 'Создание пилота (по JWT).'})
     @ApiResponse({status: 200, type: Pilot})
     @Post()
     create(@Body() dto: PilotDto, @Req() req: Request){
@@ -23,7 +23,7 @@ export class PilotController {
 
     @ApiOperation({summary: 'Получение всех Pilot.'})
     @ApiResponse({status: 200, type: [Pilot]})
-    @Get()
+    @Get('all')
     findAll(){
         return this.service.getAll()
     }
@@ -36,9 +36,16 @@ export class PilotController {
         return this.service.findOneById(id)
     }
 
+    @ApiOperation({summary: 'Получение Pilot его владельцу (по JWT).'})
+    @ApiResponse({status: 200, type: Pilot})
+    @Get()
+    findByUser(@Req() req: Request){
+        return this.service.findByUser(req)
+    }
 
 
-    @ApiOperation({summary: 'Удаление Pilot по его id.'})
+
+    @ApiOperation({summary: 'Удаление Pilot по его id (по JWT).'})
     @ApiResponse({status: 200})
     @Delete(':id')
     remove(@Param('id') id: string, @Req() req: Request){

@@ -14,7 +14,7 @@ export class EconomicsController {
 
     @ApiOperation({summary: 'Получение всех Economics.'})
     @ApiResponse({status: 200, type: [Economics]})
-    @Get()
+    @Get('all')
     findAll(){
         return this.service.getAll()
     }

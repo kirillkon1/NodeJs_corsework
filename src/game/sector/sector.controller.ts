@@ -14,7 +14,7 @@ export class SectorController {
 
     @ApiOperation({summary: 'Получение всех секторов.'})
     @ApiResponse({status: 200, type: [Sector]})
-    @Get()
+    @Get('all')
     findAll(){
         return this.service.getAll()
     }

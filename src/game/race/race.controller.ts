@@ -14,7 +14,7 @@ export class RaceController {
 
     @ApiOperation({summary: 'Получение всех Race.'})
     @ApiResponse({status: 200, type: [Race]})
-    @Get()
+    @Get('all')
     findAll(){
         return this.service.getAll()
     }

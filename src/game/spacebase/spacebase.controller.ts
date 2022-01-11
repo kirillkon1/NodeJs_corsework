@@ -16,7 +16,7 @@ export class SpacebaseController {
 
     @ApiOperation({summary: 'Получение всех Spacebase.'})
     @ApiResponse({status: 200, type: [Spacebase]})
-    @Get()
+    @Get('all')
     findAll(){
         return this.service.getAll()
     }

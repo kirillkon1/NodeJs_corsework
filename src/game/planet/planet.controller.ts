@@ -16,7 +16,7 @@ export class PlanetController {
 
     @ApiOperation({summary: 'Получение всех Planet.'})
     @ApiResponse({status: 200, type: [Planet]})
-    @Get()
+    @Get('all')
     findAll(){
         return this.service.getAll()
     }
@@ -36,7 +36,7 @@ export class PlanetController {
         return this.service.getAllBySystemId(id)
     }
 
-    @ApiOperation({summary: 'Получение Planet по id системы.'})
+    @ApiOperation({summary: 'Получение рас по id планеты.'})
     @ApiResponse({status: 200, type: [Planet]})
     @Get('system/:id/races')
     findAllRacesByPlanetId(@Param('id') id: string){

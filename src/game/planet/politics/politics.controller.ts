@@ -14,7 +14,7 @@ export class PoliticsController {
 
     @ApiOperation({summary: 'Получение всех Politics.'})
     @ApiResponse({status: 200, type: [Politics]})
-    @Get()
+    @Get('all')
     findAll(){
         return this.service.getAll()
     }
