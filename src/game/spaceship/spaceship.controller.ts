@@ -8,6 +8,7 @@ import {LandingDto} from "../landing/landing.dto";
 import {SpaceshipDto} from "./dto/spaceship.dto";
 import {MoveToSystemDto} from "./dto/moveToSystemDto";
 import {Request} from "express";
+import {UpdateSpaceshipDto} from "./dto/updateSpaceship.dto";
 
 
 @Controller('spaceship')
@@ -25,6 +26,20 @@ export class SpaceshipController {
         return this.service.createNewShip(dto)
     }
 
+    @ApiOperation({summary: 'Обновить существующий корабль (нужен id => см. UpdateSpaceshipDto).'})
+    @ApiResponse({status: 200, type: Spaceship})
+    @Post('update')
+    update(@Body() dto: UpdateSpaceshipDto, @Req() req: Request) {
+        return this.service.updateSpaceship(req, dto)
+    }
+
+    @ApiOperation({summary: 'Получение корабля по id пилота.'})
+    @ApiResponse({status: 200, type: Spaceship})
+    @Get("pilot/:id")
+    findPilotsShip(@Param('id') id: string, @Req() req: Request) {
+        return this.service.findOneByPilot(id, req)
+    }
+
     @ApiOperation({summary: 'Получение всех Spaceship.'})
     @ApiResponse({status: 200, type: [Spaceship]})
     @Get('all')
@@ -33,7 +48,7 @@ export class SpaceshipController {
     }
 
     @ApiOperation({summary: 'Получение одного Spaceship по его id.'})
-    @ApiResponse({status: 200, type: [Spaceship]})
+    @ApiResponse({status: 200, type: Spaceship})
     @Get(':id')
     findOne(@Param('id') id: string) {
         return this.service.findOneById(id)

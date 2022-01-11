@@ -7,6 +7,7 @@ import {Users} from "../../users/users.model";
 import {Request} from "express";
 import {MoveToSystemDto} from "./dto/moveToSystemDto";
 import {UpdateSpaceshipDto} from "./dto/updateSpaceship.dto";
+import {Pilot} from "../pilot/pilot.model";
 
 
 @Injectable()
@@ -28,13 +29,15 @@ export class SpaceshipService {
         })
     }
 
-    findOneByPilotId(id: string, req: Request): Promise<Spaceship> {
-        return this.spaceshipRepository.findOne({
-            where: {
-                pilot_id: id,
-            },
-            include: {all: true}
-        })
+    async findOneByPilot(id: string, req: Request): Promise<Spaceship> {
+        const ship:Spaceship = await this.spaceshipRepository.findOne({where:{pilot_id: id}, include: {model: Pilot}})
+
+        const user: Users = await this.jwtService.verify(req.headers.authorization.split(' ')[0])
+
+        if(ship.pilot.owner != user.id) throw new HttpException("Данный корабль вам не принадлежит!", HttpStatus.FORBIDDEN)
+
+        return ship
+
     }
 
     async removeOne(id: string): Promise<void> {
@@ -65,7 +68,7 @@ export class SpaceshipService {
 
         const duplicate_ship: Spaceship = await this.findOneById(String(dto.spaceship_id))
 
-        const user: Users = await this.jwtService.verify(req.headers.authorization.split(' ')[0])
+        const user: Users = await this.jwtService.verify(req.headers.authorization.split(' ')[1])
 
         if (duplicate_ship.pilot.owner != user.id) throw new HttpException("Данный пилот вам не принадлежит!", HttpStatus.FORBIDDEN)
 
@@ -76,13 +79,13 @@ export class SpaceshipService {
     async updateSpaceship(req: Request, dto: UpdateSpaceshipDto) {
 
         try {
-            const verify_ship: Spaceship = await this.spaceshipRepository.findOne({where: {id: dto.id}})
+            const verify_ship: Spaceship = await this.spaceshipRepository.findOne({where: {id: dto.id}, include: {model: Pilot}})
 
             if (!verify_ship) return "Ваш корабль не был найден!"
 
             const user: Users = await this.jwtService.verify(req.headers.authorization.split(' ')[1])
 
-            if (verify_ship.pilot.owner != user.id) return "Данный пилот вам не принадлежит!"
+            if (verify_ship.pilot.owner != user.id) return "Данный корабль вам не принадлежит!"
 
             return await this.spaceshipRepository.update({
                     name: dto.name,
