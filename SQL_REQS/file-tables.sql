@@ -1,9 +1,5 @@
-insert into user_role(role_name)
-values ('USER'),
-       ('ADMIN');
-
 insert into username
-values (default, 'BOT', 'LOGIN', (select id from user_role where user_role.role_name = 'ADMIN'));
+values (default, 'BOT', 'LOGIN');
 
 insert into spaceship_type
 values (default,

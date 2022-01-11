@@ -27,7 +27,6 @@ create table spacebase_type
     rating_down int check (rating_down < 100 and rating_down >= -100
         ),
     rating_up   int check ( rating_up >= -100 and rating_up <= 100 and rating_down < rating_up)
---     image       varchar(255) not null
 );
 
 
@@ -111,18 +110,12 @@ create table action_type
             )
 );
 
-create table user_role
-(
-    id        serial primary key,
-    role_name varchar(32) unique
-);
 
 create table username
 (
     id       serial primary key,
     login    varchar(64) unique           not null,
-    password varchar(64)                  not null,
-    role_id     integer references user_role not null
+    password varchar(64)                  not null
 );
 
 create table pilot
