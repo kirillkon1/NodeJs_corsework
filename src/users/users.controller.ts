@@ -22,7 +22,7 @@ export class UsersController {
 
     @ApiOperation({summary: 'Получение всех пользователей.'})
     @ApiResponse({status: 200, type: [Users]})
-    @Get()
+    @Get('all')
     findAll() {
         return this.userService.getAllUsers()
     }

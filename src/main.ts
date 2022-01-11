@@ -10,7 +10,7 @@ async function start() {
     const config = new DocumentBuilder()
         .setTitle('Космические Рейнджеры. Курсовая работа.')
         .setDescription('Документация REST API')
-        .setVersion('1.0.0')
+        .setVersion('1.0.18')
         .addTag('ITMO COURSEWORK')
         .build()
 

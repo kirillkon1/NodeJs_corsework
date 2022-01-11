@@ -27,7 +27,7 @@ export class JwtAuthGuard implements CanActivate {
             return true
 
         } catch (e) {
-            throw new UnauthorizedException({message: "Не авторизованный пользователь!"})
+            throw new UnauthorizedException({message: "Ошибка! Ваша сессия истекла!"})
         }
 
     }

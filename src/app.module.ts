@@ -9,7 +9,6 @@ import {Politics} from "./game/planet/politics/politics.model";
 import {Race} from "./game/race/race.model";
 import {Economics} from "./game/planet/economics/economics.model";
 import {LivingRaces} from "./game/planet/living_races/living_races.model";
-import {UserRole} from "./users/user-role/user_role.model";
 import {System} from "./game/system/system.model";
 import {AuthModule} from './auth/auth.module';
 import {ConfigModule} from "@nestjs/config";
@@ -34,7 +33,7 @@ import {SpaceshipType} from "./game/spaceship/spaceship-type/spaceship-type.mode
             password: process.env.POSTGRES_PASSWORD,
             database: process.env.POSTGRES_DATABASE,
             autoLoadModels: false,
-            models: [Users, UserRole, Sector, Sector, System, Planet, Politics,
+            models: [Users,Sector, Sector, System, Planet, Politics,
                 Race, Economics, LivingRaces, Spacebase, SpacebaseType, Pilot, Landing,
                 Spaceship, SpaceshipType
             ],
