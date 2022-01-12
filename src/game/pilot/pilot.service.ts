@@ -25,14 +25,18 @@ export class PilotService {
 
             const comrade: Pilot = await this.getPilotByName(name)
 
-            console.log(comrade)
 
-            if (comrade) return "Простите, но пилот с таким именем уже существует!"
+            if (comrade) throw new HttpException( "Простите, но пилот с таким именем уже существует!", HttpStatus.CONFLICT)
 
 
             return await this.pilotRepository.create({name, description, race_id, rating, owner, image})
         } catch (e) {
-            console.log(e)
+
+            if(e instanceof HttpException){
+                throw e
+            }
+
+
             throw new HttpException("Не получается создать пилота!", HttpStatus.FORBIDDEN)
         }
     }

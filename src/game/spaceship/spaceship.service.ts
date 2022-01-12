@@ -81,11 +81,11 @@ export class SpaceshipService {
         try {
             const verify_ship: Spaceship = await this.spaceshipRepository.findOne({where: {id: dto.id}, include: {model: Pilot}})
 
-            if (!verify_ship) return "Ваш корабль не был найден!"
+            if (!verify_ship) throw new HttpException( "Ваш корабль не был найден!", HttpStatus.CONFLICT)
 
             const user: Users = await this.jwtService.verify(req.headers.authorization.split(' ')[1])
 
-            if (verify_ship.pilot.owner != user.id) return "Данный корабль вам не принадлежит!"
+            if (verify_ship.pilot.owner != user.id) throw new HttpException( "Данный корабль вам не принадлежит!", HttpStatus.CONFLICT)
 
             return await this.spaceshipRepository.update({
                     name: dto.name,
@@ -94,6 +94,11 @@ export class SpaceshipService {
                 },
                 {where: {id: verify_ship.id}})
         } catch (e) {
+
+            if(e instanceof HttpException){
+                throw e
+            }
+
             throw new HttpException("Произошла ошибка обновления корабля! Проверьте все ли поля с id (даже пользователь) существуют!", HttpStatus.CONFLICT)
         }
     }
