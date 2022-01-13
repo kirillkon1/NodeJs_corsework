@@ -17,7 +17,6 @@ export class AuthService {
     async login(userDto: UserDto) {
 
         const user = await this.validateUser(userDto)
-
         return this.generateToken(user)
 
     }
@@ -36,6 +35,25 @@ export class AuthService {
     }
 
 
+    async validateToken(req){
+
+        try {
+            const AuthHeader = req.headers.authorization
+
+            const bearer = AuthHeader.split(' ')[0]
+            const token = AuthHeader.split(' ')[1]
+            if (bearer != 'Bearer' || !token) {
+                return false
+            }
+
+            const user: Users = this.jwtService.verify(token)
+            return true
+
+        } catch (e) {
+            return false
+        }
+    }
+
     private async generateToken(user: Users) {
         const payload = {login: user.login, password: user.password, id: user.id}
         return {
@@ -50,12 +68,14 @@ export class AuthService {
         if(!user) throw new HttpException("Данного пользавателя не существует!", HttpStatus.BAD_REQUEST)
 
         const passwordEquals = await bcrypt.compare(userDto.password, user.password)
-
         if (user && passwordEquals) {
             return user
         }
+
         throw new UnauthorizedException({message: "Неверный логин или пароль!"})
     }
+
+
 
 
 }

@@ -5,6 +5,6 @@ export class UserDto {
     @ApiProperty({example: 'admin', description: 'Логин пользователя'})
     readonly login: string
 
-    @ApiProperty({example: 'admin123 (хэш)', description: 'Пароль пользователя'})
+    @ApiProperty({example: 'admin', description: 'Пароль пользователя'})
     readonly password: string
 }

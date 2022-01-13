@@ -1,7 +1,9 @@
-import {Body, Controller, Post} from '@nestjs/common';
-import {ApiTags} from "@nestjs/swagger";
+import {Body, Controller, Get, Post, Req} from '@nestjs/common';
+import {ApiOperation, ApiResponse, ApiTags} from "@nestjs/swagger";
 import {UserDto} from "../users/userDto";
 import {AuthService} from "./auth.service";
+import {Request} from "express";
+
 
 
 @ApiTags('Авторизация')
@@ -21,5 +23,11 @@ export class AuthController {
         return this.authService.registration(userDto)
     }
 
+    @ApiOperation({summary: 'Проверка валидности JWT'})
+    @ApiResponse({status: 200, type: Boolean})
+    @Get('/checkToken')
+    checkToken(@Req() req: Request){
+        return this.authService.validateToken(req)
+    }
 
 }
