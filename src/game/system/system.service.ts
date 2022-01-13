@@ -13,7 +13,7 @@ export class SystemService {
     }
 
     findAllBySectorId(sectorId: string): Promise<System[]>{
-        return this.systemRepository.findAll({where: {sector: sectorId}, include: {all: true}})
+        return this.systemRepository.findAll({where: {sector_id: sectorId}, include: {all: true}})
     }
 
     findOneById(id: string): Promise<System>{
