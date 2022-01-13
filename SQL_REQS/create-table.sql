@@ -164,7 +164,7 @@ create table spaceship
 create table action
 (
     id                 serial primary key,
-    date               date not null default now(),
+    date               timestamp not null default now(),
     action_description text,
     pilot_id           int  not null
         references pilot

@@ -18,6 +18,8 @@ import {Pilot} from "./game/pilot/pilot.model";
 import {Landing} from "./game/landing/landing.model";
 import {Spaceship} from "./game/spaceship/spaceship.model";
 import {SpaceshipType} from "./game/spaceship/spaceship-type/spaceship-type.model";
+import {Action} from "./game/action/action.model";
+import {ActionType} from "./game/action/action-type/action-type.model";
 
 @Module({
     imports: [
@@ -35,7 +37,7 @@ import {SpaceshipType} from "./game/spaceship/spaceship-type/spaceship-type.mode
             autoLoadModels: false,
             models: [Users,Sector, Sector, System, Planet, Politics,
                 Race, Economics, LivingRaces, Spacebase, SpacebaseType, Pilot, Landing,
-                Spaceship, SpaceshipType
+                Spaceship, SpaceshipType, Action, ActionType
             ],
         }),
         AuthModule, UsersModule, GameModule

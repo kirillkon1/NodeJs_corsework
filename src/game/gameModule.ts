@@ -34,19 +34,23 @@ import {LandingService} from "./landing/landing.service";
 import {LivingRaces} from "./planet/living_races/living_races.model";
 import {Economics} from "./planet/economics/economics.model";
 import {AuthModule} from "../auth/auth.module";
+import {ActionService} from "./action/action.service";
+import {ActionController} from "./action/action.controller";
+import {Action} from "./action/action.model";
+import {ActionType} from "./action/action-type/action-type.model";
 
 
 
 @Module({
 
     providers: [SectorService, SystemService, PlanetService, RaceService, PoliticsService, EconomicsService,
-        SpacebaseService, PilotService, LandingService, SpaceshipService],
+        SpacebaseService, PilotService, LandingService, SpaceshipService, ActionService],
 
-    controllers: [PilotController, SpaceshipController, SectorController, SystemController, PlanetController,
+    controllers: [PilotController, ActionController, SpaceshipController, SectorController, SystemController, PlanetController,
         RaceController, PoliticsController, EconomicsController, SpacebaseController, TestController],
 
     imports: [SequelizeModule.forFeature([Pilot, Sector, System, Planet, Politics,
-        Race, Economics, LivingRaces, Spacebase, SpacebaseType, Landing, Spaceship, SpaceshipType]), AuthModule]
+        Race, Economics, LivingRaces, Spacebase, SpacebaseType, Landing, Spaceship, SpaceshipType, Action, ActionType]), AuthModule]
 })
 export class GameModule {
 }
