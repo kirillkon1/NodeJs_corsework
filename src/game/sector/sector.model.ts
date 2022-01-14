@@ -1,5 +1,6 @@
-import {Column, DataType, Model, Table} from "sequelize-typescript";
+import {Column, DataType, HasMany, Model, Table} from "sequelize-typescript";
 import {ApiProperty} from "@nestjs/swagger";
+import {System} from "../system/system.model";
 
 
 @Table({tableName: 'sector', createdAt: false, updatedAt: false})
@@ -13,5 +14,7 @@ export class Sector extends Model<Sector> {
     @Column({type: DataType.STRING, unique: true, allowNull: false})
     name: string
 
+    @HasMany(() => System)
+    systems: System[]
 
 }

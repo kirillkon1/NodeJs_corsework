@@ -35,7 +35,7 @@ import {ActionType} from "./game/action/action-type/action-type.model";
             password: process.env.POSTGRES_PASSWORD,
             database: process.env.POSTGRES_DATABASE,
             autoLoadModels: false,
-            models: [Users,Sector, Sector, System, Planet, Politics,
+            models: [Users, Sector, System, Planet, Politics,
                 Race, Economics, LivingRaces, Spacebase, SpacebaseType, Pilot, Landing,
                 Spaceship, SpaceshipType, Action, ActionType
             ],

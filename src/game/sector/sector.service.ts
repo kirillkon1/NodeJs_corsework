@@ -1,6 +1,7 @@
 import {Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/sequelize';
 import {Sector} from "./sector.model";
+import {System} from "../system/system.model";
 
 @Injectable()
 export class SectorService {
@@ -8,7 +9,7 @@ export class SectorService {
     constructor(@InjectModel(Sector) private sectorRepository: typeof Sector) {}
 
     async getAll(){
-        return await this.sectorRepository.findAll()
+        return await this.sectorRepository.findAll({include: {model: System}})
     }
 
     findOneById(id: string): Promise<Sector>{

@@ -21,9 +21,10 @@ export class System extends Model<System>{
 
     @ApiProperty({example: "1", description: "id сектора"})
     @ForeignKey(() => Sector)
-    @Column({type: DataType.INTEGER})
+    @Column
     sector_id: number
 
     @BelongsTo(() => Sector)
     sector: Sector
+
 }
