@@ -17,6 +17,7 @@ export class SectorService {
             where:{
                 id,
             },
+            include: {model: System}
         })
     }
 
