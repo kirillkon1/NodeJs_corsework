@@ -32,7 +32,7 @@ export class SpacebaseController {
     @ApiOperation({summary: 'Получение Spacebase по id системы, в которой он находится'})
     @ApiResponse({status: 200, type: [Base]})
     @Get('system/:id')
-    findBySystemId(@Param('id') id: string){
+    findAllBySystemId(@Param('id') id: string){
         return this.service.findAllBySystemId(id)
     }
 

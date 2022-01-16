@@ -16,9 +16,9 @@ export class PilotService {
     async create(dto: PilotDto, req: Request) {
 
 
-        const pilot: Pilot = await this.findByUser(req)
-
-        if(pilot) throw new HttpException("У вас уже есть пилот!", HttpStatus.FORBIDDEN)
+        // const pilot: Pilot = await this.findOwned(req)
+        //
+        // if(pilot) throw new HttpException("У вас уже есть пилот!", HttpStatus.FORBIDDEN)
 
 
         try {
@@ -37,6 +37,7 @@ export class PilotService {
             return await this.pilotRepository.create({name, race_id, rating, owner, image})
         } catch (e) {
 
+            console.log(e);
             if(e instanceof HttpException){
                 throw e
             }
@@ -50,9 +51,18 @@ export class PilotService {
         return await this.pilotRepository.findAll({})
     }
 
-    async findByUser(req: Request) {
+    async findAllByUserId(id: string)
+    {
+        return this.pilotRepository.findAll({
+            where: {
+                owner: id
+            }
+        })
+    }
+
+    async findOwned(req: Request) {
         const user: Users = await this.jwtService.verify(req.headers.authorization.split(' ')[1])
-        return await this.pilotRepository.findOne({
+        return await this.pilotRepository.findAll({
             where: {
                 owner: user.id,
             },
@@ -65,7 +75,7 @@ export class PilotService {
             where: {
                 id,
             },
-            include: {all: true}
+            // include: {all: true}
         })
     }
 

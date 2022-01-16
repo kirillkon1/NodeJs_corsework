@@ -6,7 +6,7 @@ import {JwtAuthGuard} from "../../auth/jwt.auth.guard";
 
 @Controller('system')
 @ApiTags('Системы')
-@UseGuards(JwtAuthGuard)
+// @UseGuards(JwtAuthGuard)
 export class SystemController {
 
     constructor(private readonly service: SystemService) {

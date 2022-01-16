@@ -16,10 +16,18 @@ export class AuthService {
 
     async login(userDto: UserDto) {
 
-        const user = await this.validateUser(userDto)
-        return this.generateToken(user)
+        const user = await this.validateUser(userDto);
+        const token = await this.generateToken(user);
 
+        return {
+            ...token,
+            user: {
+                id: user.id,
+                login: user.login
+            }
+        }
     }
+
 
     async registration(userDto: UserDto) {
         const candidate = await this.userService.getUserByLogin(userDto.login)
@@ -30,15 +38,22 @@ export class AuthService {
 
         const hashPassword = await bcrypt.hash(userDto.password, this.salt)
         const user = await this.userService.createUser({...userDto, password: hashPassword})
+        const token = await this.generateToken(user);
 
-        return this.generateToken(user)
+        return {
+            ...token,
+            user: {
+                id: user.id,
+                login: user.login
+            }
+        }
     }
 
 
     async validateToken(req){
 
         try {
-            const AuthHeader = req.headers.authorization
+            const AuthHeader = req.headers.authorization;
 
             const bearer = AuthHeader.split(' ')[0]
             const token = AuthHeader.split(' ')[1]
@@ -72,7 +87,7 @@ export class AuthService {
             return user
         }
 
-        throw new UnauthorizedException({message: "Неверный логин или пароль!"})
+        throw new UnauthorizedException("Неверный логин или пароль!")
     }
 
 

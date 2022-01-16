@@ -28,6 +28,12 @@ export class PilotController {
         return this.service.getAll()
     }
 
+    @Get('user/:id')
+    findAllByUserId(@Param('id') id: string)
+    {
+        return this.service.findAllByUserId(id);
+    }
+
 
     @ApiOperation({summary: 'Получение Pilot по его id.'})
     @ApiResponse({status: 200, type: [Pilot]})
@@ -38,9 +44,9 @@ export class PilotController {
 
     @ApiOperation({summary: 'Получение Pilot его владельцу (по JWT).'})
     @ApiResponse({status: 200, type: Pilot})
-    @Get()
-    findByUser(@Req() req: Request){
-        return this.service.findByUser(req)
+    @Get('owned')
+    findOwned(@Req() req: Request){
+        return this.service.findOwned(req)
     }
 
 

@@ -1,6 +1,7 @@
 import {Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/sequelize';
 import {Base} from "./spacebase.model";
+import { SpacebaseType } from "./spacebase-type/spacebase-type.model";
 
 @Injectable()
 export class SpacebaseService {
@@ -24,6 +25,7 @@ export class SpacebaseService {
             where:{
                 system_id: id
             },
+            include: [{model: SpacebaseType}]
         })
     }
 

@@ -9,6 +9,10 @@ export class SectorService {
     constructor(@InjectModel(Sector) private sectorRepository: typeof Sector) {}
 
     async getAll(){
+        return await this.sectorRepository.findAll();
+    }
+
+    async findAllIncludeSystems(){
         return await this.sectorRepository.findAll({include: {model: System}})
     }
 

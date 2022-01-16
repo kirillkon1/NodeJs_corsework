@@ -9,6 +9,7 @@ import {SpaceshipDto} from "./dto/spaceship.dto";
 import {MoveToSystemDto} from "./dto/moveToSystemDto";
 import {Request} from "express";
 import {UpdateSpaceshipDto} from "./dto/updateSpaceship.dto";
+import { Pilot } from "../pilot/pilot.model";
 
 
 @Controller('spaceship')
@@ -23,7 +24,7 @@ export class SpaceshipController {
     @ApiResponse({status: 200, type: Spaceship})
     @Post()
     create(@Body() dto: SpaceshipDto) {
-        return this.service.createNewShip(dto)
+        return this.service.createShip(dto);
     }
 
     @ApiOperation({summary: 'Обновить существующий корабль (нужен id => см. UpdateSpaceshipDto).'})
@@ -33,11 +34,12 @@ export class SpaceshipController {
         return this.service.updateSpaceship(req, dto)
     }
 
+
     @ApiOperation({summary: 'Получение корабля по id пилота.'})
     @ApiResponse({status: 200, type: Spaceship})
-    @Get("pilot/:id")
-    findPilotsShip(@Param('id') id: string, @Req() req: Request) {
-        return this.service.findOneByPilot(id, req)
+    @Get("pilot/:id") // есть ситем id внтури
+    findAllByPilotId(@Param('id') id: string, @Req() req: Request) {
+        return this.service.findAllByPilotId(id, req)
     }
 
     @ApiOperation({summary: 'Получение всех Spaceship.'})
@@ -50,9 +52,11 @@ export class SpaceshipController {
     @ApiOperation({summary: 'Получение всех Spaceship со связью Pilot.'})
     @ApiResponse({status: 200, type: [Spaceship]})
     @Get('all/pilot')
-    findAllWithPilot() {
-        return this.service.findAllWithPilot()
+    findAllIncludePilot() {
+        return this.service.findAllIncludePilot()
     }
+
+
 
     @ApiOperation({summary: 'Получение одного Spaceship по его id.'})
     @ApiResponse({status: 200, type: Spaceship})

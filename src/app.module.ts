@@ -28,6 +28,13 @@ import {ActionType} from "./game/action/action-type/action-type.model";
         }),
 
         SequelizeModule.forRoot({
+
+            dialectOptions: {
+                ssl: {
+                    require: true,
+                    rejectUnauthorized: false
+                }
+            },
             dialect: 'postgres',
             host: process.env.POSTGRES_HOST,
             port: Number(process.env.POSTGRES_PORT),

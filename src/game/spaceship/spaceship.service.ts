@@ -23,7 +23,8 @@ export class SpaceshipService {
         return await this.spaceshipRepository.findAll({include: [{model: SpaceshipType}]})
     }
 
-    async findAllWithPilot() {
+
+    async findAllIncludePilot() {
         return await this.spaceshipRepository.findAll({include: [{model: Pilot}, {model: SpaceshipType}]})
     }
 
@@ -36,16 +37,17 @@ export class SpaceshipService {
         })
     }
 
-    async findOneByPilot(id: string, req: Request): Promise<Spaceship> {
-        const ship:Spaceship = await this.spaceshipRepository.findOne({where:{pilot_id: id}, include: [{model: Pilot}, {model: SpaceshipType}]})
+    async findAllByPilotId(id: string, req: Request): Promise<Spaceship[]> {
+        const ships: Spaceship[] = await this.spaceshipRepository.findAll({where:{pilot_id: id}, /*include: [/!*{model: Pilot},*!/ {model: SpaceshipType}]*/})
 
-        const user: Users = await this.jwtService.verify(req.headers.authorization.split(' ')[0])
+        // const user: Users = await this.jwtService.verify(req.headers.authorization.split(' ')[0])
 
-        if(ship.pilot.owner != user.id) throw new HttpException("Данный корабль вам не принадлежит!", HttpStatus.FORBIDDEN)
+        // if(ship.pilot.owner != user.id) throw new HttpException("Данный корабль вам не принадлежит!", HttpStatus.FORBIDDEN)
 
-        return ship
+        return ships;
 
     }
+
 
     async removeOne(id: string): Promise<void> {
         const entity = await this.findOneById(id)
@@ -56,21 +58,22 @@ export class SpaceshipService {
         return await this.spaceshipRepository.findAll({where: {system_id: id}, include: [{model: Pilot}, {model: SpaceshipType}]})
     }
 
-    async createNewShip(dto: SpaceshipDto) {
+    async createShip(dto: SpaceshipDto) {
 
-        let verify_ship: Spaceship = await this.spaceshipRepository.findOne({where: {pilot_id: dto.pilot_id}})
+        // let verify_ship: Spaceship = await this.spaceshipRepository.findOne({where: {pilot_id: dto.pilot_id}})
+        //
+        // if (verify_ship) throw new HttpException("У вашего пилота уже есть корабль!", HttpStatus.FORBIDDEN)
 
-        if (verify_ship) throw new HttpException("У вашего пилота уже есть корабль!", HttpStatus.FORBIDDEN)
+        const verify_ship = await this.getByName(dto.name)
 
-        verify_ship = await this.getByName(dto.name)
-
-        dto.system_id = await this.getRandomSystemId()
+        // dto.system_id = await this.getRandomSystemId()
 
         if (verify_ship) throw new HttpException("Простите! Но корабль с таким именем уже существует!", HttpStatus.CONFLICT)
 
         try {
             return await this.spaceshipRepository.create(dto)
         } catch (e) {
+            console.log(e);
             throw new HttpException("Не получилось создать корабль! Проверьте, на всякий случай создан ли пилот, тип_корабля" +
                 " и система с соответсвующими id!", HttpStatus.CONFLICT)
         }

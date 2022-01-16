@@ -19,6 +19,11 @@ export class SectorController {
         return this.service.getAll()
     }
 
+    async findAllIncludeSystems() {
+        return this.service.findAllIncludeSystems();
+    }
+
+
 
     @ApiOperation({summary: 'Получение сектора по его id.'})
     @ApiResponse({status: 200, type: [Sector]})
