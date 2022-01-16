@@ -24,7 +24,7 @@ export class PilotService {
         try {
             const name: string = dto.name
             const race_id: number = dto.race_id
-            const rating: number = dto.rating
+            const rating: number = dto.rating ? dto.rating : 0
             const owner: number = this.jwtService.verify(req.headers.authorization.split(' ')[1]).id
             const image: string = dto.image
 
