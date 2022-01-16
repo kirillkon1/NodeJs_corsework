@@ -15,9 +15,14 @@ export class PilotService {
 
     async create(dto: PilotDto, req: Request) {
 
+
+        const pilot: Pilot = await this.findByUser(req)
+
+        if(pilot) throw new HttpException("У вас уже есть пилот!", HttpStatus.FORBIDDEN)
+
+
         try {
             const name: string = dto.name
-            const description: string = dto.description
             const race_id: number = dto.race_id
             const rating: number = dto.rating
             const owner: number = this.jwtService.verify(req.headers.authorization.split(' ')[1]).id
@@ -29,7 +34,7 @@ export class PilotService {
             if (comrade) throw new HttpException( "Простите, но пилот с таким именем уже существует!", HttpStatus.CONFLICT)
 
 
-            return await this.pilotRepository.create({name, description, race_id, rating, owner, image})
+            return await this.pilotRepository.create({name, race_id, rating, owner, image})
         } catch (e) {
 
             if(e instanceof HttpException){
@@ -71,7 +76,6 @@ export class PilotService {
                 name: dto.name,
                 race_id: dto.race_id,
                 image: dto.image,
-                description: dto.description,
                 rating: dto.rating
             }, {where: {id: id}})
 

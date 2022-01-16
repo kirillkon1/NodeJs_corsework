@@ -6,7 +6,6 @@ import {Users} from "../../users/users.model";
 
 interface PilotCreationAttr{
     name: string
-    description: string
     race_id: number
     rating: number
     owner: number
@@ -24,10 +23,6 @@ export class Pilot extends Model<Pilot, PilotCreationAttr>{
     @ApiProperty({example: "Черкаш", description: "Имя пилота."})
     @Column({type: DataType.STRING, unique: true, allowNull: false})
     name: string
-
-    @ApiProperty({example: "Черкаш - самый невозмутимый персонаж на этой планете.", description: "описание пилота"})
-    @Column({type: DataType.STRING})
-    description: string
 
     @ApiProperty({example: "1", description: "id расы пилота"})
     @ForeignKey(() => Race)

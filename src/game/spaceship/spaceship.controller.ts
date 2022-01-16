@@ -44,7 +44,14 @@ export class SpaceshipController {
     @ApiResponse({status: 200, type: [Spaceship]})
     @Get('all')
     findAll() {
-        return this.service.getAll()
+        return this.service.findAll()
+    }
+
+    @ApiOperation({summary: 'Получение всех Spaceship со связью Pilot.'})
+    @ApiResponse({status: 200, type: [Spaceship]})
+    @Get('all/pilot')
+    findAllWithPilot() {
+        return this.service.findAllWithPilot()
     }
 
     @ApiOperation({summary: 'Получение одного Spaceship по его id.'})

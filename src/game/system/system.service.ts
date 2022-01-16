@@ -29,4 +29,9 @@ export class SystemService {
         const entity = await this.findOneById(id)
         await entity.destroy()
     }
+
+    countAll(): Promise<number>{
+        return this.systemRepository.count()
+    }
+
 }

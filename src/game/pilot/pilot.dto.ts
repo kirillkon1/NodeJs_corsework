@@ -5,9 +5,6 @@ export class PilotDto{
     @ApiProperty({example: 'qwerty', description: 'Имя пилота'})
     name: string
 
-    @ApiProperty({example: 'Это описание', description: 'Описание пилота'})
-    description: string
-
     @ApiProperty({example: '1', description: 'id расы пилота'})
     race_id: number
 

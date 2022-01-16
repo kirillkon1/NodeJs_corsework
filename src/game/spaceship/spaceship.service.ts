@@ -8,16 +8,23 @@ import {Request} from "express";
 import {MoveToSystemDto} from "./dto/moveToSystemDto";
 import {UpdateSpaceshipDto} from "./dto/updateSpaceship.dto";
 import {Pilot} from "../pilot/pilot.model";
+import {SpaceshipType} from "./spaceship-type/spaceship-type.model";
+import {SystemService} from "../system/system.service";
 
 
 @Injectable()
 export class SpaceshipService {
 
-    constructor(@InjectModel(Spaceship) private spaceshipRepository: typeof Spaceship, private readonly jwtService: JwtService) {
+    constructor(@InjectModel(Spaceship) private spaceshipRepository: typeof Spaceship,
+                private readonly jwtService: JwtService, private readonly systemService: SystemService) {
     }
 
-    async getAll() {
-        return await this.spaceshipRepository.findAll({include: {all: true}})
+    async findAll() {
+        return await this.spaceshipRepository.findAll({include: [{model: SpaceshipType}]})
+    }
+
+    async findAllWithPilot() {
+        return await this.spaceshipRepository.findAll({include: [{model: Pilot}, {model: SpaceshipType}]})
     }
 
     findOneById(id: string): Promise<Spaceship> {
@@ -30,7 +37,7 @@ export class SpaceshipService {
     }
 
     async findOneByPilot(id: string, req: Request): Promise<Spaceship> {
-        const ship:Spaceship = await this.spaceshipRepository.findOne({where:{pilot_id: id}, include: {model: Pilot}})
+        const ship:Spaceship = await this.spaceshipRepository.findOne({where:{pilot_id: id}, include: [{model: Pilot}, {model: SpaceshipType}]})
 
         const user: Users = await this.jwtService.verify(req.headers.authorization.split(' ')[0])
 
@@ -46,20 +53,25 @@ export class SpaceshipService {
     }
 
     async findAllBySystemId(id: string) {
-        return await this.spaceshipRepository.findAll({where: {system_id: id}, include: {all: true}})
+        return await this.spaceshipRepository.findAll({where: {system_id: id}, include: [{model: Pilot}, {model: SpaceshipType}]})
     }
 
     async createNewShip(dto: SpaceshipDto) {
 
-        const duplicate_ship = await this.getByName(dto.name)
+        let verify_ship: Spaceship = await this.spaceshipRepository.findOne({where: {pilot_id: dto.pilot_id}})
 
+        if (verify_ship) throw new HttpException("У вашего пилота уже есть корабль!", HttpStatus.FORBIDDEN)
 
-        if (duplicate_ship) throw new HttpException("Простите! Но корабль с таким именем уже существует!", HttpStatus.CONFLICT)
+        verify_ship = await this.getByName(dto.name)
+
+        dto.system_id = await this.getRandomSystemId()
+
+        if (verify_ship) throw new HttpException("Простите! Но корабль с таким именем уже существует!", HttpStatus.CONFLICT)
 
         try {
             return await this.spaceshipRepository.create(dto)
         } catch (e) {
-            throw new HttpException("Не получилось создать корабль! Проверьте, навсякий случай создан ли пилот, тип_корабля" +
+            throw new HttpException("Не получилось создать корабль! Проверьте, на всякий случай создан ли пилот, тип_корабля" +
                 " и система с соответсвующими id!", HttpStatus.CONFLICT)
         }
     }
@@ -106,5 +118,9 @@ export class SpaceshipService {
 
     private getByName(name: string): Promise<Spaceship> {
         return this.spaceshipRepository.findOne({where: {name: name}})
+    }
+
+    private async getRandomSystemId(): Promise<number> {
+        return Math.round(Math.random() * (await this.systemService.countAll()))
     }
 }
