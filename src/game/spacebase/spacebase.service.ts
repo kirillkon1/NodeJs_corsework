@@ -1,17 +1,17 @@
 import {Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/sequelize';
-import {Spacebase} from "./spacebase.model";
+import {Base} from "./spacebase.model";
 
 @Injectable()
 export class SpacebaseService {
 
-    constructor(@InjectModel(Spacebase) private spacebaseRepository: typeof Spacebase) {}
+    constructor(@InjectModel(Base) private spacebaseRepository: typeof Base) {}
 
     async getAll(){
         return await this.spacebaseRepository.findAll({include: {all: true}})
     }
 
-    findOneById(id: string): Promise<Spacebase>{
+    findOneById(id: string): Promise<Base>{
         return this.spacebaseRepository.findOne({
             where:{
                 id,
@@ -19,7 +19,7 @@ export class SpacebaseService {
         })
     }
 
-    findAllBySystemId(id: string): Promise<Spacebase[]>{
+    findAllBySystemId(id: string): Promise<Base[]>{
         return this.spacebaseRepository.findAll({
             where:{
                 system_id: id

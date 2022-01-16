@@ -25,7 +25,7 @@ import {Planet} from "./planet/planet.model";
 import {System} from "./system/system.model";
 import {Pilot} from "./pilot/pilot.model";
 import {SequelizeModule} from "@nestjs/sequelize";
-import {Spacebase} from "./spacebase/spacebase.model";
+import {Base} from "./spacebase/spacebase.model";
 import {SpacebaseType} from "./spacebase/spacebase-type/spacebase-type.model";
 import {Landing} from "./landing/landing.model";
 import {Spaceship} from "./spaceship/spaceship.model";
@@ -50,7 +50,7 @@ import {ActionType} from "./action/action-type/action-type.model";
         RaceController, PoliticsController, EconomicsController, SpacebaseController, TestController],
 
     imports: [SequelizeModule.forFeature([Pilot, Sector, System, Planet, Politics,
-        Race, Economics, LivingRaces, Spacebase, SpacebaseType, Landing, Spaceship, SpaceshipType, Action, ActionType]), AuthModule]
+        Race, Economics, LivingRaces, Base, SpacebaseType, Landing, Spaceship, SpaceshipType, Action, ActionType]), AuthModule]
 })
 export class GameModule {
 }

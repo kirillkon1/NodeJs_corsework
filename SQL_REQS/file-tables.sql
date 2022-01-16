@@ -542,31 +542,31 @@ insert into spaceship(name, spaceship_type_id, pilot_id, system_id, image) value
 ('Корабль Рейнджера Барогаб', (select id from spaceship_type where spaceship_type.name = 'Корабль Рейнджера'), (select id from pilot where pilot.name = 'Барогаб'),7,'2PelengR.png'),
 ('Флагман Милианай', (select id from spaceship_type where spaceship_type.name = 'Флагман'), (select id from pilot where pilot.name = 'Милианай'),1,'2FeiBW.png');
 
-insert into spacebase(name, spacebase_type_id, system_id)
+insert into spacebase(name, spacebase_type_id, system_id, coord_x, coord_y)
 values ('Пьяный корсар',
         (select id from spacebase_type where spacebase_type.name = 'Черный рынок'),
-        (select id from system where system.name = 'Таллот')),
+        (select id from system where system.name = 'Таллот'), 1000, -1000),
        ('Костоправ',
         (select id from spacebase_type where spacebase_type.name = 'Медицинский центр'),
-        (select id from system where system.name = 'Солнце')),
+        (select id from system where system.name = 'Солнце'), 900, -900),
        ('Террор',
         (select id from spacebase_type where spacebase_type.name = 'Черный рынок'),
-        (select id from system where system.name = 'Шеат')),
+        (select id from system where system.name = 'Шеат'), 800, -800),
        ('Доминион',
         (select id from spacebase_type where spacebase_type.name = 'Доминион'),
-        (select id from system where system.name = 'Денеб')),
+        (select id from system where system.name = 'Денеб'),1233, -1233),
        ('Альфа',
         (select id from spacebase_type where spacebase_type.name = 'Военная база'),
-        (select id from system where system.name = 'Фелгест')),
+        (select id from system where system.name = 'Фелгест'), 888, -888),
        ('Мечтатель',
         (select id from spacebase_type where spacebase_type.name = 'Центр рейнджеров'),
-        (select id from system where system.name = 'Диадема')),
+        (select id from system where system.name = 'Диадема'), 434, 455),
        ('Квантум',
         (select id from spacebase_type where spacebase_type.name = 'Научная станция'),
-        (select id from system where system.name = 'Бетельгейзе')),
+        (select id from system where system.name = 'Бетельгейзе'),-434, -455),
        ('Эконом',
         (select id from spacebase_type where spacebase_type.name = 'Бизнес-центр'),
-        (select id from system where system.name = 'Таллот'))
+        (select id from system where system.name = 'Таллот'), -900, 900)
 ;
 
 insert into action_type

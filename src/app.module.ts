@@ -12,7 +12,7 @@ import {LivingRaces} from "./game/planet/living_races/living_races.model";
 import {System} from "./game/system/system.model";
 import {AuthModule} from './auth/auth.module';
 import {ConfigModule} from "@nestjs/config";
-import {Spacebase} from "./game/spacebase/spacebase.model";
+import {Base} from "./game/spacebase/spacebase.model";
 import {SpacebaseType} from "./game/spacebase/spacebase-type/spacebase-type.model";
 import {Pilot} from "./game/pilot/pilot.model";
 import {Landing} from "./game/landing/landing.model";
@@ -36,7 +36,7 @@ import {ActionType} from "./game/action/action-type/action-type.model";
             database: process.env.POSTGRES_DATABASE,
             autoLoadModels: false,
             models: [Users, Sector, System, Planet, Politics,
-                Race, Economics, LivingRaces, Spacebase, SpacebaseType, Pilot, Landing,
+                Race, Economics, LivingRaces, Base, SpacebaseType, Pilot, Landing,
                 Spaceship, SpaceshipType, Action, ActionType
             ],
         }),

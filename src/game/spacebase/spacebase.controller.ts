@@ -1,7 +1,7 @@
 import {Controller, Get, Param, UseGuards} from '@nestjs/common';
 import {ApiOperation, ApiResponse, ApiTags} from "@nestjs/swagger";
 import {SpacebaseService} from "./spacebase.service";
-import {Spacebase} from "./spacebase.model";
+import {Base} from "./spacebase.model";
 import {JwtAuthGuard} from "../../auth/jwt.auth.guard";
 
 
@@ -15,7 +15,7 @@ export class SpacebaseController {
     }
 
     @ApiOperation({summary: 'Получение всех Spacebase.'})
-    @ApiResponse({status: 200, type: [Spacebase]})
+    @ApiResponse({status: 200, type: [Base]})
     @Get('all')
     findAll(){
         return this.service.getAll()
@@ -23,14 +23,14 @@ export class SpacebaseController {
 
 
     @ApiOperation({summary: 'Получение Spacebase по его id.'})
-    @ApiResponse({status: 200, type: [Spacebase]})
+    @ApiResponse({status: 200, type: [Base]})
     @Get(':id')
     findOne(@Param('id') id: string){
         return this.service.findOneById(id)
     }
 
     @ApiOperation({summary: 'Получение Spacebase по id системы, в которой он находится'})
-    @ApiResponse({status: 200, type: [Spacebase]})
+    @ApiResponse({status: 200, type: [Base]})
     @Get('system/:id')
     findBySystemId(@Param('id') id: string){
         return this.service.findAllBySystemId(id)

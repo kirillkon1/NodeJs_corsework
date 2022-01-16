@@ -1,7 +1,7 @@
 
 import {BelongsTo, Column, DataType, ForeignKey, Model, Table} from "sequelize-typescript";
 import {Planet} from "../planet/planet.model";
-import {Spacebase} from "../spacebase/spacebase.model";
+import {Base} from "../spacebase/spacebase.model";
 import {Spaceship} from "../spaceship/spaceship.model";
 
 interface LandingAttr {
@@ -32,6 +32,6 @@ export class Landing extends Model<Landing, LandingAttr>{
     planet: Planet
 
     @Column({type: DataType.INTEGER})
-    @ForeignKey(() => Spacebase)
+    @ForeignKey(() => Base)
     spacebase_id: number
 }

@@ -6,7 +6,7 @@ import {SpacebaseType} from "./spacebase-type/spacebase-type.model";
 
 
 @Table({tableName: 'spacebase', createdAt: false, updatedAt: false})
-export class Spacebase extends Model<Spacebase>{
+export class Base extends Model<Base>{
 
     @ApiProperty({example: "1", description: "id объекта"})
     @Column({type: DataType.INTEGER, unique: true, autoIncrement: true, primaryKey: true})
@@ -28,5 +28,13 @@ export class Spacebase extends Model<Spacebase>{
 
     @BelongsTo(()=> SpacebaseType)
     spacebase_type: SpacebaseType
+
+    @ApiProperty({example: 100, description: "координта X"})
+    @Column({type: DataType.INTEGER})
+    coord_x: number
+
+    @ApiProperty({example: 100, description: "координта Y"})
+    @Column({type: DataType.INTEGER})
+    coord_y: number
 
 }

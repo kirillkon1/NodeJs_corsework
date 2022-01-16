@@ -40,7 +40,9 @@ create table spacebase
     system_id         int         not null
         references system
             on delete cascade -- delete a systemSR - delete everything
-            on update cascade
+            on update cascade,
+    coord_x int not null,
+    coord_y int not null
 );
 
 create table politics

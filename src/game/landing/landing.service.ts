@@ -4,7 +4,7 @@ import {Landing} from "./landing.model";
 import {LandingDto} from "./landing.dto";
 import {Planet} from "../planet/planet.model";
 import {Spaceship} from "../spaceship/spaceship.model";
-import {Spacebase} from "../spacebase/spacebase.model";
+import {Base} from "../spacebase/spacebase.model";
 import {SpaceshipService} from "../spaceship/spaceship.service";
 import {PlanetService} from "../planet/planet.service";
 import {SpacebaseService} from "../spacebase/spacebase.service";
@@ -19,7 +19,7 @@ export class LandingService {
     async launchOn(dto: LandingDto){
 
         const ship:Spaceship = await this.spaceshipService.findOneById(String(dto.spaceship_id))
-        const base:Spacebase = await this.spacebaseService.findOneById(String(dto.spacebase_id))
+        const base:Base = await this.spacebaseService.findOneById(String(dto.spacebase_id))
         const planet:Planet = await this.planetService.findOneById(String(dto.planet_id))
 
         const entity = await this.landingRepository.findOne({where: {
@@ -77,7 +77,7 @@ export class LandingService {
         }
 
         if(landing.spacebase_id){
-            return this.landingRepository.findOne({attributes: [], where: {spaceship_id: id}, include: {model: Spacebase}})
+            return this.landingRepository.findOne({attributes: [], where: {spaceship_id: id}, include: {model: Base}})
         }
     }
 

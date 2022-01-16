@@ -1,8 +1,4 @@
-
 import {BelongsTo, Column, DataType, ForeignKey, Model, Table} from "sequelize-typescript";
-import {Planet} from "../planet/planet.model";
-import {Spacebase} from "../spacebase/spacebase.model";
-import {Spaceship} from "../spaceship/spaceship.model";
 import {Pilot} from "../pilot/pilot.model";
 import {ActionType} from "./action-type/action-type.model";
 
