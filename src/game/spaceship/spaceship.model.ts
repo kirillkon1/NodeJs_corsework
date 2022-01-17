@@ -26,7 +26,7 @@ export class Spaceship extends Model<Spaceship, SpaceshipAttr> {
     @Column({type: DataType.STRING, unique: true, allowNull: false})
     name: string
 
-    @ApiProperty({example: "1", description: "id типа пилота"})
+    @ApiProperty({example: "1", description: "id типа корабля"})
     @Column({type: DataType.NUMBER})
     @ForeignKey(() => SpaceshipType)
     spaceship_type_id: number

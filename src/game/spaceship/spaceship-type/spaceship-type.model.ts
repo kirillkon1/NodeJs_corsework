@@ -2,7 +2,7 @@
 import {Column, DataType, Model, Table } from "sequelize-typescript";
 import {ApiProperty} from "@nestjs/swagger";
 
-@Table({tableName: 'politics', createdAt: false, updatedAt: false})
+@Table({tableName: 'spaceship_type', createdAt: false, updatedAt: false})
 export class SpaceshipType extends Model<SpaceshipType>{
 
     @ApiProperty({example: "1", description: "id объекта"})
