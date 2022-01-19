@@ -4,12 +4,12 @@ import {JwtAuthGuard} from "../../auth/jwt.auth.guard";
 import {LandingService} from "../landing/landing.service";
 import {SpaceshipService} from "./spaceship.service";
 import {Spaceship} from "./spaceship.model";
-import {LandingDto} from "../landing/landing.dto";
-import {SpaceshipDto} from "./dto/spaceship.dto";
-import {MoveToSystemDto} from "./dto/moveToSystemDto";
 import {Request} from "express";
+import {SpaceshipDto} from "./dto/spaceship.dto";
 import {UpdateSpaceshipDto} from "./dto/updateSpaceship.dto";
-import { Pilot } from "../pilot/pilot.model";
+import {MoveToSystemDto} from "./dto/moveToSystem.dto";
+import {LandingBaseDto, LandingPlanetDto} from "../landing/landing.dto";
+
 
 
 @Controller('spaceship')
@@ -34,12 +34,11 @@ export class SpaceshipController {
         return this.service.updateSpaceship(req, dto)
     }
 
-
     @ApiOperation({summary: 'Получение корабля по id пилота.'})
     @ApiResponse({status: 200, type: Spaceship})
-    @Get("pilot/:id") // есть ситем id внтури
-    findAllByPilotId(@Param('id') id: string, @Req() req: Request) {
-        return this.service.findAllByPilotId(id, req)
+    @Get("pilot/:id")
+    findAllByPilotId(@Param('id') id: string) {
+        return this.service.findAllByPilotId(id)
     }
 
     @ApiOperation({summary: 'Получение всех Spaceship.'})
@@ -56,8 +55,6 @@ export class SpaceshipController {
         return this.service.findAllIncludePilot()
     }
 
-
-
     @ApiOperation({summary: 'Получение одного Spaceship по его id.'})
     @ApiResponse({status: 200, type: Spaceship})
     @Get(':id')
@@ -72,19 +69,40 @@ export class SpaceshipController {
         return this.service.findAllBySystemId(id)
     }
 
+
+
+    //Взаимодействие с планетой или базой
+
     @ApiOperation({summary: 'Посадить корабль на планету (нужно LandingDTO!).'})
     @ApiResponse({status: 200})
     @Put('planet')
-    launchOnPlanet(@Body() dto: LandingDto) {
-        return this.landingService.launchOn(dto)
+    launchOnPlanet(@Body() dto: LandingPlanetDto) {
+        return this.landingService.launchOnPlanet(dto)
     }
 
     @ApiOperation({summary: 'Посадить корабль на космическую станцию (нужен LandingDTO!).'})
     @ApiResponse({status: 200})
     @Put('base')
-    launchOnBase(@Body() dto: LandingDto) {
-        this.landingService.launchOn(dto)
+    launchOnBase(@Body() dto: LandingBaseDto) {
+       return this.landingService.launchOnBase(dto)
     }
+
+    //Взлёт
+    @ApiOperation({summary: 'Покинуть станцию или планету (id корабля)'})
+    @ApiResponse({status: 200})
+    @Delete('/leave/:id')
+    leave(@Param("id") ship_id: number) {
+        return this.landingService.remove(ship_id)
+    }
+
+    @ApiOperation({summary: 'Находится ли корабль на планете/базе. Возращает id планеты/базы или false в обратном случае'})
+    @ApiResponse({status: 200})
+    @Get('/landed/:id')
+    whereAmI(@Param("id") ship_id: number){
+        return this.landingService.findWhereIsSpaceshipById(ship_id)
+    }
+
+    //Перемещение в другую систему
 
     @ApiOperation({summary: 'Перелететь в другую систему. (см. MoveToSystemDTO!)'})
     @ApiResponse({status: 200})
@@ -93,12 +111,9 @@ export class SpaceshipController {
         this.service.moveToAnotherSystem(req, dto)
     }
 
-    @ApiOperation({summary: 'Покинуть станцию или планету (см. LandingDTO!).'})
-    @ApiResponse({status: 200})
-    @Delete('/leave')
-    leave(@Body() dto: LandingDto) {
-        this.landingService.remove(dto)
-    }
+
+
+    //Получение кораблей по планете или базе
 
     @ApiOperation({summary: 'Получить все корабли (Spaceship), которые есть на планете. (id планеты)'})
     @Get('planet/:id')

@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Param, Post, Put, Req, UseGuards} from '@nestjs/common';
+import {Body, Controller, Get, Param, Put, Req, UseGuards} from '@nestjs/common';
 import {ApiOperation, ApiResponse, ApiTags} from "@nestjs/swagger";
 import {JwtAuthGuard} from "../../auth/jwt.auth.guard";
 import {ActionService} from "./action.service";
@@ -26,18 +26,18 @@ export class ActionController {
         return this.service.findRatingListByPilotId(id)
     }
 
-    @ApiOperation({summary: 'Получить типы действий'})
-    @ApiResponse({status: 200, type: [ActionType]})
-    @Get('typeList')
-    getActionList(){
-        return this.service.findAllActionTypes()
-    }
-
     @ApiOperation({summary: 'Записать действие пилота и обновить его рейтинг. (см. ActionDto)'})
     @ApiResponse({status: 200, type: Pilot})
     @Put('pilot')
     updatePilotsRating(@Req() req: Request, @Body() dto: ActionDto){
         this.service.updateRating(req, dto)
+    }
+
+    @ApiOperation({summary: 'Получить типы действий'})
+    @ApiResponse({status: 200, type: [ActionType]})
+    @Get('typeList')
+    getActionList(){
+        return this.service.findAllActionTypes()
     }
 
 

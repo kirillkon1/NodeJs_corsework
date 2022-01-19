@@ -9,12 +9,11 @@ export class ActionType extends Model<ActionType> {
     @Column({type: DataType.INTEGER, unique: true, autoIncrement: true, primaryKey: true})
     id: number
 
-    @ApiProperty({example: "Сделать  плохо", description: "Название типа действия"})
+    @ApiProperty({example: "Сделать  плохо", description: "Название типа действия."})
     @Column({type: DataType.STRING, allowNull: false})
     name: string
 
-    @ApiProperty({example: -1, description: "Сколько будет давать рейтинга пилота, за действие такго типа." +
-            "В базе может быть [-10. 10]"})
+    @ApiProperty({example: -1, description: "Сколько будет давать рейтинга пилота, за действие такого типа."})
     @Column({type: DataType.INTEGER})
     action_impact: number
 

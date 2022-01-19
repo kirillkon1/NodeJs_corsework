@@ -553,32 +553,21 @@ values ('Пьяный корсар',
         (select id from system where system.name = 'Шеат'), -800, -800),
        ('Доминион',
         (select id from spacebase_type where spacebase_type.name = 'Доминион'),
-        (select id from system where system.name = 'Денеб'),-1233, -1233),
+        (select id from system where system.name = 'Денеб'),-1233, -1000),
        ('Альфа',
         (select id from spacebase_type where spacebase_type.name = 'Военная база'),
         (select id from system where system.name = 'Фелгест'), -888, -888),
        ('Мечтатель',
         (select id from spacebase_type where spacebase_type.name = 'Центр рейнджеров'),
-        (select id from system where system.name = 'Диадема'), -1434, 455),
+        (select id from system where system.name = 'Диадема'), -1334, 455),
        ('Квантум',
         (select id from spacebase_type where spacebase_type.name = 'Научная станция'),
-        (select id from system where system.name = 'Бетельгейзе'),-1434, -455),
+        (select id from system where system.name = 'Бетельгейзе'),-1234, -455),
        ('Эконом',
         (select id from spacebase_type where spacebase_type.name = 'Бизнес-центр'),
         (select id from system where system.name = 'Таллот'), -900, 900)
 ;
 
-insert into action_type
-    (name, action_impact)
-values ('Нападение на торговое судно', -4),
-       ('Помощь терпящему крушение мирному кораблю', +2);
-
-
-insert into action
-    (action_description, pilot_id, action_type_id)
-values ('Было совершено ограбление торгового судна. Обошлось без жертв.',
-        1,
-        (select id from action_type where action_type.name = 'Нападение на торговое судно'));
 
 insert into action_type
 (name, action_impact)
@@ -592,4 +581,4 @@ insert into action
 (action_description, pilot_id, action_type_id)
 values ('Было совершено ограбление торгового судна. Обошлось без жертв.',
         2,
-        (select id from action_type where action_type.name = 'Нападение на торговое судно'));
+        (select id from action_type where action_type.name = 'Сделать  плохо'));

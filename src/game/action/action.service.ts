@@ -20,21 +20,19 @@ export class ActionService{
     async updateRating(req: Request, dto: ActionDto){
         const pilot:Pilot = await this.pilotRepository.findOne({where:{id: dto.pilot_id}})
 
+        //проверка пользователя
         const user: Users = await this.jwtService.verify(req.headers.authorization.split(' ')[1])
-
         if(pilot.owner != user.id) throw new HttpException("Данный пилот вам не принадлежит!", HttpStatus.FORBIDDEN)
+        //
 
-        const rating: ActionType = await this.actionTypeRepository.findOne({where:{id: dto.action_type_id}})
+        const actionType: ActionType = await this.actionTypeRepository.findOne({where:{id: dto.action_type_id}})
 
         this.actionRepository.create(dto)
 
-        pilot.rating += rating.action_impact
+        pilot.rating += actionType.action_impact
 
         if(pilot.rating >= 100) pilot.rating = 100
         if(pilot.rating <= -100) pilot.rating = -100
-
-
-
 
         await this.pilotRepository.update({rating: pilot.rating}, {where: {id: pilot.id}})
     }

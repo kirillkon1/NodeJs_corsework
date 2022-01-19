@@ -21,7 +21,6 @@ export class SpacebaseController {
         return this.service.getAll()
     }
 
-
     @ApiOperation({summary: 'Получение Spacebase по его id.'})
     @ApiResponse({status: 200, type: [Base]})
     @Get(':id')
@@ -35,7 +34,6 @@ export class SpacebaseController {
     findAllBySystemId(@Param('id') id: string){
         return this.service.findAllBySystemId(id)
     }
-
 
     // @ApiOperation({summary: 'Удаление Spacebase по его id.'})
     // @ApiResponse({status: 200})

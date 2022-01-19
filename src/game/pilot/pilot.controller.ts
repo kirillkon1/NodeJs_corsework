@@ -42,9 +42,9 @@ export class PilotController {
         return this.service.findOneById(id)
     }
 
-    @ApiOperation({summary: 'Получение Pilot его владельцу (по JWT).'})
+    @ApiOperation({summary: 'Получение Pilot по его владельцу (по JWT).'})
     @ApiResponse({status: 200, type: Pilot})
-    @Get('owned')
+    @Get('owner')
     findOwned(@Req() req: Request){
         return this.service.findOwned(req)
     }

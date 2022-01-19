@@ -1,15 +1,15 @@
 import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/sequelize';
 import {Spaceship} from "./spaceship.model";
-import {SpaceshipDto} from "./dto/spaceship.dto";
 import {JwtService} from "@nestjs/jwt";
 import {Users} from "../../users/users.model";
 import {Request} from "express";
-import {MoveToSystemDto} from "./dto/moveToSystemDto";
-import {UpdateSpaceshipDto} from "./dto/updateSpaceship.dto";
 import {Pilot} from "../pilot/pilot.model";
 import {SpaceshipType} from "./spaceship-type/spaceship-type.model";
 import {SystemService} from "../system/system.service";
+import {SpaceshipDto} from "./dto/spaceship.dto";
+import {MoveToSystemDto} from "./dto/moveToSystem.dto";
+import {UpdateSpaceshipDto} from "./dto/updateSpaceship.dto";
 
 
 @Injectable()
@@ -37,32 +37,24 @@ export class SpaceshipService {
         })
     }
 
-    async findAllByPilotId(id: string, req: Request): Promise<Spaceship[]> {
+    async findAllByPilotId(id: string): Promise<Spaceship[]> {
         const ships: Spaceship[] = await this.spaceshipRepository.findAll({where:{pilot_id: id}, /*include: [/!*{model: Pilot},*!/ {model: SpaceshipType}]*/})
-
-        // const user: Users = await this.jwtService.verify(req.headers.authorization.split(' ')[0])
-
-        // if(ship.pilot.owner != user.id) throw new HttpException("Данный корабль вам не принадлежит!", HttpStatus.FORBIDDEN)
 
         return ships;
 
     }
 
 
-    async removeOne(id: string): Promise<void> {
-        const entity = await this.findOneById(id)
-        await entity.destroy()
-    }
+    // async removeOne(id: string): Promise<void> {
+    //     const entity = await this.findOneById(id)
+    //     await entity.destroy()
+    // }
 
     async findAllBySystemId(id: string) {
         return await this.spaceshipRepository.findAll({where: {system_id: id}, include: [{model: Pilot}, {model: SpaceshipType}]})
     }
 
     async createShip(dto: SpaceshipDto) {
-
-        // let verify_ship: Spaceship = await this.spaceshipRepository.findOne({where: {pilot_id: dto.pilot_id}})
-        //
-        // if (verify_ship) throw new HttpException("У вашего пилота уже есть корабль!", HttpStatus.FORBIDDEN)
 
         const verify_ship = await this.getByName(dto.name)
 

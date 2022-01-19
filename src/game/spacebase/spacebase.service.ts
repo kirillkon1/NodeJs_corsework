@@ -17,6 +17,7 @@ export class SpacebaseService {
             where:{
                 id,
             },
+            include:{model: SpacebaseType}
         })
     }
 
