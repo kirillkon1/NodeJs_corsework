@@ -280,11 +280,14 @@ insert into planet(name, citizens, politics_id, economics_id, system_id, coord_x
 ('Клиент', 0, null, null, (select system.id from system where system.name = 'Кефрон'), 990, 870, 'p7.png'),
 ('Комик', 7403, 1, 1, (select system.id from system where system.name = 'Кефрон'), 279, 804, 'p2.png'),
 
-('Держак', 1265, 1, 2, (select system.id from system where system.name = 'Солнце'), 181, -1249, 'p6.png'),
-('Хокку', 0, null, null, (select system.id from system where system.name = 'Солнце'), 814, -1140, 'p2.png'),
-('Будра', 0, null, null, (select system.id from system where system.name = 'Солнце'), -215, 405, 'p2.png'),
-('Серпий', 9225, 1, 2, (select system.id from system where system.name = 'Солнце'), -434, -138, 'p8.png'),
-('Ирида', 0, null, null, (select system.id from system where system.name = 'Солнце'), -1244, 585, 'p7.png');
+('Меркурий', 1265, 1, 2, (select system.id from system where system.name = 'Солнце'), 181, -1249, 'solar/mercury.png'),
+('Венера', 0, null, null, (select system.id from system where system.name = 'Солнце'), 814, -1140, 'solar/venus.png'),
+('Земля', 0, null, null, (select system.id from system where system.name = 'Солнце'), -215, 405, 'solar/earth.png'),
+('Марс', 9225, 1, 2, (select system.id from system where system.name = 'Солнце'), -434, -138, 'solar/mars.png'),
+('Юпитер', 0, null, null, (select system.id from system where system.name = 'Солнце'), -1244, 585, 'solar/jupiter.png'),
+('Сатурн', 9225, 1, 2, (select system.id from system where system.name = 'Солнце'), -330, -282, 'solar/saturn.png'),
+('Уран', 9225, 1, 2, (select system.id from system where system.name = 'Солнце'), -1033, 1297, 'solar/uranus.png'),
+('Нептун', 9225, 1, 2, (select system.id from system where system.name = 'Солнце'), 531, -486, 'solar/neptune.png');
 
 
 -------LIVING_RACES-------
@@ -540,33 +543,27 @@ insert into spaceship(name, spaceship_type_id, pilot_id, system_id, image) value
 ('Флагман Грумандо', (select id from spaceship_type where spaceship_type.name = 'Флагман'), (select id from pilot where pilot.name = 'Грумандо'),15,'2PelengBW.png'),
 ('Корабль Рейнджера Пехи Монца', (select id from spaceship_type where spaceship_type.name = 'Корабль Рейнджера'), (select id from pilot where pilot.name = 'Пехи Монца'),16,'2PeopleR.png');
 
-
-insert into spacebase(name, spacebase_type_id, system_id, coord_x, coord_y)
-values ('Пьяный корсар',
-        (select id from spacebase_type where spacebase_type.name = 'Черный рынок'),
-        (select id from system where system.name = 'Таллот'), -1000, -1000),
-       ('Костоправ',
-        (select id from spacebase_type where spacebase_type.name = 'Медицинский центр'),
-        (select id from system where system.name = 'Солнце'), -900, -900),
-       ('Террор',
-        (select id from spacebase_type where spacebase_type.name = 'Черный рынок'),
-        (select id from system where system.name = 'Шеат'), -800, -800),
-       ('Доминион',
-        (select id from spacebase_type where spacebase_type.name = 'Доминион'),
-        (select id from system where system.name = 'Денеб'),-1233, -1000),
-       ('Альфа',
-        (select id from spacebase_type where spacebase_type.name = 'Военная база'),
-        (select id from system where system.name = 'Фелгест'), -888, -888),
-       ('Мечтатель',
-        (select id from spacebase_type where spacebase_type.name = 'Центр рейнджеров'),
-        (select id from system where system.name = 'Диадема'), -1334, 455),
-       ('Квантум',
-        (select id from spacebase_type where spacebase_type.name = 'Научная станция'),
-        (select id from system where system.name = 'Бетельгейзе'),-1234, -455),
-       ('Эконом',
-        (select id from spacebase_type where spacebase_type.name = 'Бизнес-центр'),
-        (select id from system where system.name = 'Таллот'), -900, 900)
-;
+-----------BASES----------
+insert into spacebase (name, spacebase_type_id, system_id, coord_x, coord_y) values
+('Союз', (select id from spacebase_type where spacebase_type.name = 'Центр рейнджеров'),(select id from system where system.name = 'Селиостр'), -1091, -1082),
+('Странник', (select id from spacebase_type where spacebase_type.name = 'Центр рейнджеров'),(select id from system where system.name = 'Бетельгейзе'), -1087, 860),
+('Мечтатель', (select id from spacebase_type where spacebase_type.name = 'Центр рейнджеров'),(select id from system where system.name = 'Маркаб'), -147, -23),
+('Лисица', (select id from spacebase_type where spacebase_type.name = 'Черный рынок'),(select id from system where system.name = 'Наккар'), -135, -187),
+('Ужастик', (select id from spacebase_type where spacebase_type.name = 'Черный рынок'),(select id from system where system.name = 'Муррац'), -1068, 427),
+('Террор', (select id from spacebase_type where spacebase_type.name = 'Черный рынок'),(select id from system where system.name = 'Таллот'), 774, -520),
+('Альфа', (select id from spacebase_type where spacebase_type.name = 'Военная база'),(select id from system where system.name = 'Хезе'), -235, -1073),
+('Бета', (select id from spacebase_type where spacebase_type.name = 'Военная база'),(select id from system where system.name = 'Фелгест'), -1040, -456),
+('Гамма', (select id from spacebase_type where spacebase_type.name = 'Военная база'),(select id from system where system.name = 'Атрия'), -325, -923),
+('Квантум', (select id from spacebase_type where spacebase_type.name = 'Научная станция'),(select id from system where system.name = 'Гевер'), 491, 601),
+('Октан-99', (select id from spacebase_type where spacebase_type.name = 'Научная станция'),(select id from system where system.name = 'Укфал'), -617, 795),
+('Органики', (select id from spacebase_type where spacebase_type.name = 'Научная станция'),(select id from system where system.name = 'Сезмен'), -305, 209),
+('Эконом', (select id from spacebase_type where spacebase_type.name = 'Бизнес-центр'),(select id from system where system.name = 'Тураис'), -128, -59),
+('Инкомат', (select id from spacebase_type where spacebase_type.name = 'Бизнес-центр'),(select id from system where system.name = 'Завия'), 1059, 928),
+('Инвестор', (select id from spacebase_type where spacebase_type.name = 'Бизнес-центр'),(select id from system where system.name = 'Краа'), -671, -74),
+('Стоматологии', (select id from spacebase_type where spacebase_type.name = 'Медицинский центр'),(select id from system where system.name = 'Юфалли'), -1099, -562),
+('Тихая обитель', (select id from spacebase_type where spacebase_type.name = 'Медицинский центр'),(select id from system where system.name = 'Солнце'), 83, 819),
+('Последнее пристанище', (select id from spacebase_type where spacebase_type.name = 'Медицинский центр'),(select id from system where system.name = 'Диадема'), -1002, 221),
+('Доминион',(select id from spacebase_type where spacebase_type.name = 'Доминион'), (select id from system where system.name = 'Денеб'),-1233, -1000);
 
 
 insert into action_type
