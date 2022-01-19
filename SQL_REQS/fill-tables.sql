@@ -222,7 +222,7 @@ insert into planet(name, citizens, politics_id, economics_id, system_id, coord_x
 ('Нерине', 0, null, null, (select system.id from system where system.name = 'Атрия'), -660, 145, 'p4.png'),
 ('Полдин', 230, 3, 1, (select system.id from system where system.name = 'Атрия'), 768, 548, 'p8.png'),
 
-('Вгонка', 0, null, null, (select system.id from system where system.name = 'Фелгест'), 69, 55, 'p5.png'),
+('Вгонка', 0, null, null, (select system.id from system where system.name = 'Фелгест'), 69, 54, 'p5.png'),
 ('Чиамба', 0, null, null, (select system.id from system where system.name = 'Фелгест'), -541, 652, 'p5.png'),
 ('Вещун', 9632, 2, 2, (select system.id from system where system.name = 'Фелгест'), 249, 774, 'p7.png'),
 ('Котище', 6632, 3, 1, (select system.id from system where system.name = 'Фелгест'), -249, 852, 'p8.png'),
