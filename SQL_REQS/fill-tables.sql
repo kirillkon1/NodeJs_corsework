@@ -276,18 +276,18 @@ insert into planet(name, citizens, politics_id, economics_id, system_id, coord_x
 ('Ларга', 1259, 3, 2, (select system.id from system where system.name = 'Бетельгейзе'), -131, 956, 'p6.png'),
 
 ('Телок', 8340, 2, 2, (select system.id from system where system.name = 'Кефрон'), -1218, -126, 'p3.png'),
-('Шхоут', 8340, 2, 2, (select system.id from system where system.name = 'Кефрон'), -330, -282, 'p2.png'),
+('Шхоут', 764, 2, 1, (select system.id from system where system.name = 'Кефрон'), -330, -282, 'p2.png'),
 ('Клиент', 0, null, null, (select system.id from system where system.name = 'Кефрон'), 990, 870, 'p7.png'),
 ('Комик', 7403, 1, 1, (select system.id from system where system.name = 'Кефрон'), 279, 804, 'p2.png'),
 
 ('Меркурий', 1265, 1, 2, (select system.id from system where system.name = 'Солнце'), 181, -1249, 'solar/mercury.png'),
-('Венера', 0, null, null, (select system.id from system where system.name = 'Солнце'), 814, -1140, 'solar/venus.png'),
-('Земля', 0, null, null, (select system.id from system where system.name = 'Солнце'), -215, 405, 'solar/earth.png'),
-('Марс', 9225, 1, 2, (select system.id from system where system.name = 'Солнце'), -434, -138, 'solar/mars.png'),
+('Венера', 1265, 1, 2, (select system.id from system where system.name = 'Солнце'), 814, -1140, 'solar/venus.png'),
+('Земля', 8340, 2, 2, (select system.id from system where system.name = 'Солнце'), -215, 405, 'solar/earth.png'),
+('Марс', 387, 2, 2, (select system.id from system where system.name = 'Солнце'), -434, -138, 'solar/mars.png'),
 ('Юпитер', 0, null, null, (select system.id from system where system.name = 'Солнце'), -1244, 585, 'solar/jupiter.png'),
-('Сатурн', 9225, 1, 2, (select system.id from system where system.name = 'Солнце'), -330, -282, 'solar/saturn.png'),
-('Уран', 9225, 1, 2, (select system.id from system where system.name = 'Солнце'), -1033, 1297, 'solar/uranus.png'),
-('Нептун', 9225, 1, 2, (select system.id from system where system.name = 'Солнце'), 531, -486, 'solar/neptune.png');
+('Сатурн', 0, null, null, (select system.id from system where system.name = 'Солнце'), -330, -282, 'solar/saturn.png'),
+('Уран', 0, null, null, (select system.id from system where system.name = 'Солнце'), -1033, 1297, 'solar/uranus.png'),
+('Нептун', 0, null, null, (select system.id from system where system.name = 'Солнце'), 531, -486, 'solar/neptune.png');
 
 
 -------LIVING_RACES-------
@@ -413,8 +413,10 @@ insert into living_races(race_id, planet_id) values
 ((select id from race where race.name = 'Гаалец'),(select id from planet where planet.name = 'Шхоут')),
 ((select id from race where race.name = 'Человек'),(select id from planet where planet.name = 'Шхоут')),
 ((select id from race where race.name = 'Малок'),(select id from planet where planet.name = 'Комик')),
-((select id from race where race.name = 'Фэяне'),(select id from planet where planet.name = 'Держак')),
-((select id from race where race.name = 'Человек'),(select id from planet where planet.name = 'Серпий'));
+((select id from race where race.name = 'Человек'),(select id from planet where planet.name = 'Венера')),
+((select id from race where race.name = 'Человек'),(select id from planet where planet.name = 'Земля')),
+((select id from race where race.name = 'Человек'),(select id from planet where planet.name = 'Марс'));
+
 
 
 
