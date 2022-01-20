@@ -28,8 +28,8 @@ export class ActionController {
     @ApiOperation({summary: 'Записать действие пилота и обновить его рейтинг. (см. ActionDto)'})
     @ApiResponse({status: 200})
     @Post('pilot')
-    updatePilotsRating(@Req() req: Request, @Body() dto: ActionDto){
-        return this.service.updateRating(req, dto)
+    performAction(@Req() req: Request, @Body() dto: ActionDto){
+        return this.service.performAction(req, dto)
     }
 
     @ApiOperation({summary: 'Получить типы действий'})

@@ -29,7 +29,7 @@ export class PilotController {
     }
 
     @Get('user/:id')
-    findAllByUserId(@Param('id') id: string)
+    findAllByUserId(@Param('id') id: number)
     {
         return this.service.findAllByUserId(id);
     }

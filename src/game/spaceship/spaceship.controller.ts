@@ -108,7 +108,7 @@ export class SpaceshipController {
     @ApiResponse({status: 200})
     @Put('move')
     moveToSystem(@Body() dto: MoveToSystemDto, @Req() req: Request) {
-        this.service.moveToAnotherSystem(req, dto)
+        return this.service.moveToAnotherSystem(req, dto)
     }
 
 

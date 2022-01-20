@@ -49,6 +49,24 @@ export class AuthService {
         }
     }
 
+    async getMe(req)
+    {
+        const AuthHeader = req.headers.authorization;
+
+        const bearer = AuthHeader.split(' ')[0]
+        const token = AuthHeader.split(' ')[1]
+        if (bearer != 'Bearer' || !token) {
+            throw new HttpException('The token isn\'t set.', HttpStatus.BAD_REQUEST);
+        }
+
+        const user: Users = this.jwtService.verify(token);
+        return {
+            id: user.id,
+            login: user.login
+        };
+
+    }
+
 
     async validateToken(req){
 

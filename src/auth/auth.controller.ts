@@ -30,4 +30,9 @@ export class AuthController {
         return this.authService.validateToken(req)
     }
 
+    @Get('/me')
+    getMe(@Req() req: Request) {
+        return this.authService.getMe(req);
+    }
+
 }

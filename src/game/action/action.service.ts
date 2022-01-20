@@ -18,7 +18,7 @@ export class ActionService {
     }
 
 
-    async updateRating(req: Request, dto: ActionDto) {
+    async performAction(req: Request, dto: ActionDto) {
         const pilot: Pilot = await this.pilotRepository.findOne({where: {id: dto.pilot_id}})
 
         //проверка пользователя

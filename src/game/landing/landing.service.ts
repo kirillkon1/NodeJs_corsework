@@ -91,16 +91,24 @@ export class LandingService {
 
         const landing = await this.landingRepository.findOne({where:{spaceship_id: id}})
 
-        if(!landing) return false
+        if(!landing) return {
+            isLanded: false
+        }
 
         if(landing.planet_id && landing.spacebase_id) throw new HttpException("Меня подставили! Тут какая-то ошибка!!", HttpStatus.CONFLICT)
 
         if(landing.planet_id){
-            return this.landingRepository.findOne({attributes: ["planet_id"], where: {spaceship_id: id}/*, include: {model: Planet}*/})
+            return {
+                isLanded: true,
+                planetID: this.landingRepository.findOne({attributes: ["planet_id"], where: {spaceship_id: id}/*, include: {model: Planet}*/}),
+            }
         }
 
-        if(landing.spacebase_id){
-            return this.landingRepository.findOne({attributes: ["spacebase_id"], where: {spaceship_id: id}/*, include: {model: Base}*/})
+        if(landing.spacebase_id) {
+            return {
+                isLanded: true,
+                baseID: this.landingRepository.findOne({attributes: ["spacebase_id"], where: {spaceship_id: id}/*, include: {model: Base}*/})
+            }
         }
 
 

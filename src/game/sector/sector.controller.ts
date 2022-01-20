@@ -19,6 +19,7 @@ export class SectorController {
         return this.service.getAll()
     }
 
+    @Get('allincludesystems')
     async findAllIncludeSystems() {
         return this.service.findAllIncludeSystems();
     }

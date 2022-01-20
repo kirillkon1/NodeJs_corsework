@@ -51,7 +51,7 @@ export class PilotService {
         return await this.pilotRepository.findAll({})
     }
 
-    async findAllByUserId(id: string)
+    async findAllByUserId(id: number)
     {
         return this.pilotRepository.findAll({
             where: {
@@ -61,7 +61,7 @@ export class PilotService {
     }
 
     async findOwned(req: Request) {
-        const user: Users = await this.jwtService.verify(req.headers.authorization.split(' ')[1])
+        const user: Users = await this.jwtService.verify(req.headers.authorization.split(' ')[1]);
         return await this.pilotRepository.findAll({
             where: {
                 owner: user.id,
