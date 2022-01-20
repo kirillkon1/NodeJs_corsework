@@ -280,7 +280,7 @@ insert into planet(name, citizens, politics_id, economics_id, system_id, coord_x
 ('Клиент', 0, null, null, (select system.id from system where system.name = 'Кефрон'), 990, 870, 'p7.png'),
 ('Комик', 7403, 1, 1, (select system.id from system where system.name = 'Кефрон'), 279, 804, 'p2.png'),
 
-('Меркурий', 1265, 1, 2, (select system.id from system where system.name = 'Солнце'), 181, -1249, 'solar/mercury.png'),
+('Меркурий', 0, null, null, (select system.id from system where system.name = 'Солнце'), 181, -1249, 'solar/mercury.png'),
 ('Венера', 1265, 1, 2, (select system.id from system where system.name = 'Солнце'), 814, -1140, 'solar/venus.png'),
 ('Земля', 8340, 2, 2, (select system.id from system where system.name = 'Солнце'), -215, 405, 'solar/earth.png'),
 ('Марс', 387, 2, 2, (select system.id from system where system.name = 'Солнце'), -434, -138, 'solar/mars.png'),
