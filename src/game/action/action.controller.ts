@@ -1,11 +1,10 @@
-import {Body, Controller, Get, Param, Put, Req, UseGuards} from '@nestjs/common';
+import {Body, Controller, Get, Param, Post, Req, UseGuards} from '@nestjs/common';
 import {ApiOperation, ApiResponse, ApiTags} from "@nestjs/swagger";
 import {JwtAuthGuard} from "../../auth/jwt.auth.guard";
 import {ActionService} from "./action.service";
 import {Action} from "./action.model";
 import {ActionDto} from "./action.dto";
 import {Request} from "express";
-import {Pilot} from "../pilot/pilot.model";
 import {ActionType} from "./action-type/action-type.model";
 
 
@@ -27,10 +26,10 @@ export class ActionController {
     }
 
     @ApiOperation({summary: 'Записать действие пилота и обновить его рейтинг. (см. ActionDto)'})
-    @ApiResponse({status: 200, type: Pilot})
-    @Put('pilot')
+    @ApiResponse({status: 200})
+    @Post('pilot')
     updatePilotsRating(@Req() req: Request, @Body() dto: ActionDto){
-        this.service.updateRating(req, dto)
+        return this.service.updateRating(req, dto)
     }
 
     @ApiOperation({summary: 'Получить типы действий'})
