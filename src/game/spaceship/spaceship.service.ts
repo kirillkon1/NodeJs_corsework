@@ -58,8 +58,6 @@ export class SpaceshipService {
 
         const verify_ship = await this.getByName(dto.name)
 
-        // dto.system_id = await this.getRandomSystemId()
-
         if (verify_ship) throw new HttpException("Простите! Но корабль с таким именем уже существует!", HttpStatus.CONFLICT)
 
         try {
@@ -115,7 +113,4 @@ export class SpaceshipService {
         return this.spaceshipRepository.findOne({where: {name: name}})
     }
 
-    private async getRandomSystemId(): Promise<number> {
-        return Math.round(Math.random() * (await this.systemService.countAll()))
-    }
 }
