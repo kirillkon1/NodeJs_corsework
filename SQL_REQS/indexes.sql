@@ -1,4 +1,4 @@
-create index pilot_index on pilot using hash(id);
+-- create index pilot_index on pilot using hash(id);
 
 create index spaceship_index_system on spaceship using btree(system_id);
 create index spaceship_index on spaceship using hash(pilot_id);
